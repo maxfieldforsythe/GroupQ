@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GroupQ</string>
+    <string name="lobby_list_title">Lobbies on Network</string>
+    <string name="join_button_label">Join</string>
+    <string name="host_a_lobby_button_label">Host a new lobby</string>
 </resources>
