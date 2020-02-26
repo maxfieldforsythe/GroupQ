@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GroupQ</string>
+    <string name="login">Log In</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="register">Register</string>
+    <string name="or">-- OR --</string>
 </resources>
