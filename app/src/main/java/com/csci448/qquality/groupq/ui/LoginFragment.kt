@@ -18,7 +18,8 @@ class LoginFragment : Fragment() {
      */
     interface Callbacks {
         // TODO handle user authentification. For now just a dummy login button
-        fun onLogin()
+        fun onLoginPressed()
+        fun onRegisterPressed()
     }
 
     private var callbacks: Callbacks? = null
@@ -54,8 +55,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loginButton.setOnClickListener {
-            // TODO call callbacks onLogin() function
-            Toast.makeText(context, "Login pressed", Toast.LENGTH_SHORT).show()
+            // TODO handle any necessary user auth stuff
+            Toast.makeText(context, "Not handling user auth yet", Toast.LENGTH_SHORT).show()
+
+            callbacks?.onLoginPressed()
         }
 
         registerButton.setOnClickListener {
