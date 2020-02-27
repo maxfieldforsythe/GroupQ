@@ -45,7 +45,7 @@ class SongSearchFragment : Fragment() {
         searchEditText = view.findViewById(R.id.search_edit_text)
         sourceSpinner = view.findViewById(R.id.source_spinner)
 
-        searchRecyclerView = view.findViewById(R.id.song_seach_recycler)
+        searchRecyclerView = view.findViewById(R.id.song_search_recycler)
         searchRecyclerView.layoutManager = LinearLayoutManager(context)
 
         updateUI()
