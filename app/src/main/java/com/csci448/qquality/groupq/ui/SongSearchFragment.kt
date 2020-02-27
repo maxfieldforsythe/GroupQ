@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
+import com.csci448.qquality.groupq.data.SongSearchResult
 
 class SongSearchFragment : Fragment() {
     // TODO nick implement this and layout
@@ -36,23 +37,28 @@ class SongSearchFragment : Fragment() {
 
     // Inner class view holder
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        // TODO implement ViewHolder
+        // TODO make the addButton function
 
         val titleTextView: TextView = itemView.findViewById(R.id.song_title)
         val artistTextView: TextView = itemView.findViewById(R.id.song_artist)
         val addButton: Button = itemView.findViewById(R.id.add_button)
 
-        // TODO bind the data
-        //fun bind(songData)
+        fun bind(song: SongSearchResult) {
+            titleTextView.text = song.title
+            artistTextView.text = song.artist
+        }
     }
 
 
-    private inner class SongSearchAdapter() :
+    private inner class SongSearchAdapter(private val songs: List<SongSearchResult>) :
             RecyclerView.Adapter<SongHolder>() {
 
-        // TODO implement adapter fully
-        // TODO override fun getItemCount() : Int {}
-        // TODO override fun onBindViewHolder(holder: SongHolder, position: Int) {}
+        override fun getItemCount() : Int { return songs.size }
+
+        override fun onBindViewHolder(holder: SongHolder, position: Int) {
+            val song = songs[position]
+            holder.bind(song)
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongHolder {
             val view = LayoutInflater.from(parent.context)
