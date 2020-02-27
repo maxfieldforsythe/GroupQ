@@ -1,4 +1,4 @@
-package com.csci448.qquality.groupq.ui
+package com.csci448.qquality.groupq.ui.login
 
 import android.content.Context
 import android.os.Bundle

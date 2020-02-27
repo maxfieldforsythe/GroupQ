@@ -3,7 +3,7 @@ package com.csci448.qquality.groupq
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.csci448.qquality.groupq.ui.LoginFragment
+import com.csci448.qquality.groupq.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
 
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
     }
 
     override fun onLoginPressed() {
-        // TODO implement user auth handling.
+        // TODO implement user auth handling. Should that be done in separate activity?
         // TODO implement change of fragments
         Toast.makeText(this, "onLogin called()", Toast.LENGTH_SHORT).show()
     }

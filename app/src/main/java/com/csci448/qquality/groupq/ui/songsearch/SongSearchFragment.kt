@@ -1,4 +1,4 @@
-package com.csci448.qquality.groupq.ui
+package com.csci448.qquality.groupq.ui.songsearch
 
 import android.os.Bundle
 import android.view.LayoutInflater
