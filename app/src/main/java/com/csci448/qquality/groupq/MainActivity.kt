@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.csci448.qquality.groupq.ui.login.LoginFragment
+import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
 
 class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
 
@@ -25,8 +26,14 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
 
     override fun onLoginPressed() {
         // TODO implement user auth handling. Should that be done in separate activity?
-        // TODO implement change of fragments
-        Toast.makeText(this, "onLogin called()", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Wrong Fragment launched for testing", Toast.LENGTH_SHORT).show()
+
+        // Don't add to back stack after login
+        // TODO launch the correct fragment
+        val fragment = SongSearchFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     override fun onRegisterPressed() {
