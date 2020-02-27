@@ -19,6 +19,15 @@ class SongSearchFragment : Fragment() {
     private lateinit var searchEditText: EditText
     private lateinit var sourceSpinner: Spinner
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Get the ViewModel
+        val factory = SongSearchViewModelFactory()
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
