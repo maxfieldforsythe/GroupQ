@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.SongSearchResult
+
+// TODO do this differently so source can be used functionally
+private val SOURCES = arrayOf("YouTube", "SoundCloud")
 
 class SongSearchFragment : Fragment() {
     // TODO nick implement this and layout
@@ -43,7 +47,10 @@ class SongSearchFragment : Fragment() {
 
         searchButton = view.findViewById(R.id.search_button)
         searchEditText = view.findViewById(R.id.search_edit_text)
+
         sourceSpinner = view.findViewById(R.id.source_spinner)
+        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, SOURCES)
+        sourceSpinner.adapter = spinnerAdapter
 
         searchRecyclerView = view.findViewById(R.id.song_search_recycler)
         searchRecyclerView.layoutManager = LinearLayoutManager(context)
