@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.SongSearchResult
@@ -13,7 +15,10 @@ import com.csci448.qquality.groupq.data.SongSearchResult
 class SongSearchFragment : Fragment() {
     // TODO nick implement this and layout
 
+    private lateinit var songSearchViewModel: SongSearchViewModel
+
     private lateinit var searchRecyclerView: RecyclerView
+    private lateinit var adapter: SongSearchAdapter
 
     private lateinit var searchButton: Button
     private lateinit var searchEditText: EditText
@@ -25,7 +30,8 @@ class SongSearchFragment : Fragment() {
 
         // Get the ViewModel
         val factory = SongSearchViewModelFactory()
-
+        songSearchViewModel = ViewModelProvider(this, factory)
+            .get(SongSearchViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -38,13 +44,22 @@ class SongSearchFragment : Fragment() {
         searchButton = view.findViewById(R.id.search_button)
         searchEditText = view.findViewById(R.id.search_edit_text)
         sourceSpinner = view.findViewById(R.id.source_spinner)
-        searchRecyclerView = view.findViewById(R.id.song_seach_recycler)
 
+        searchRecyclerView = view.findViewById(R.id.song_seach_recycler)
+        searchRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        updateUI()
         return view
     }
 
+    private fun updateUI() {
+        val songs = songSearchViewModel.songs
+        adapter = SongSearchAdapter(songs)
+        searchRecyclerView.adapter = adapter
+    }
 
-    // Inner class view holder
+
+    // Inner class ViewHolder
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
         // TODO make the addButton function
 
@@ -59,6 +74,7 @@ class SongSearchFragment : Fragment() {
     }
 
 
+    // Inner class Adapter
     private inner class SongSearchAdapter(private val songs: List<SongSearchResult>) :
             RecyclerView.Adapter<SongHolder>() {
 
