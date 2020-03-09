@@ -3,4 +3,16 @@
     <string name="search_button">Search</string>
     <string name="url_textview">URL</string>
     <string name="url_button">Add Song</string>
+    <string name="login">Log In</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="register">Register</string>
+    <string name="or">-- OR --</string>
+    <string name="search">SEARCH</string>
+    <string name="source">Source: </string>
+    <string name="keywords">keyword(s)</string>
+    <string name="add_to_queue">Add to Q</string>
+    <string name="lobby_list_title">Lobbies on Network</string>
+    <string name="join_button_label">Join</string>
+    <string name="host_a_lobby_button_label">Host a new lobby</string>
 </resources>

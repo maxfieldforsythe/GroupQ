@@ -32,22 +32,29 @@
             android:id="@+id/url_edit_text"
             android:layout_width="261dp"
             android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="9dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@string/url_textview"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="9dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/add_song_botton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="30dp"
             android:text="@string/url_button"
-            tools:layout_editor_absoluteX="292dp"
-            tools:layout_editor_absoluteY="9dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/url_edit_text"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="415dp"
         android:layout_height="150dp"
         android:layout_marginTop="461dp"
@@ -61,43 +68,66 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="352dp"
             android:layout_height="10dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
             android:background="#3AA2B1"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="1dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_play_button"
-            tools:layout_editor_absoluteX="141dp"
-            tools:layout_editor_absoluteY="26dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+            app:layout_constraintStart_toEndOf="@+id/imageButton3"
+            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
+            app:srcCompat="@drawable/ic_play_button" />
 
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="3dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_back"
-            tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="26dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
+            app:srcCompat="@drawable/ic_back" />
 
         <ImageButton
             android:id="@+id/imageButton5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="9dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_next"
-            tools:layout_editor_absoluteX="273dp"
-            tools:layout_editor_absoluteY="26dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButton2"
+            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
+            app:srcCompat="@drawable/ic_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/queue_recycler"
         android:layout_width="408dp"
         android:layout_height="462dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="119dp" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
