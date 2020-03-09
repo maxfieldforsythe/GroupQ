@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00C70F0F"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="415dp"
+        android:layout_height="120dp"
+        android:background="#BBC1E4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="164dp"
+            android:text="@string/search_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/url_edit_text"
+            android:layout_width="261dp"
+            android:layout_height="56dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/url_textview"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="9dp" />
+
+        <Button
+            android:id="@+id/add_song_botton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/url_button"
+            tools:layout_editor_absoluteX="292dp"
+            tools:layout_editor_absoluteY="9dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="415dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="461dp"
+        android:background="#ADB2DD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <ProgressBar
+            android:id="@+id/track_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="352dp"
+            android:layout_height="10dp"
+            android:background="#3AA2B1"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/ic_play_button"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="26dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/ic_back"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="26dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/ic_next"
+            tools:layout_editor_absoluteX="273dp"
+            tools:layout_editor_absoluteY="26dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="408dp"
+        android:layout_height="462dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="119dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

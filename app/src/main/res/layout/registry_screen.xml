@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E3F7F7">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="248dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textColor="#000000"
+            android:textColorHint="#00FFFFFF"
+            tools:layout_editor_absoluteX="37dp"
+            tools:layout_editor_absoluteY="263dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="39dp"
+            tools:layout_editor_absoluteY="342dp" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="317dp" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="397dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="40dp"
+            tools:layout_editor_absoluteY="415dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter your information below to create your account!"
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="93dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="567dp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="327dp"
+            tools:layout_editor_absoluteY="506dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I agree to the GroupQ TOS and other stuff...."
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="506dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
