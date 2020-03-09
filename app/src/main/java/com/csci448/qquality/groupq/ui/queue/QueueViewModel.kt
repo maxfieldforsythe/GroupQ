@@ -8,7 +8,7 @@ class QueueViewModel() : ViewModel(){
     val songs = mutableListOf<SongSearchResult>()
 
     init {
-        for (i in 0 until 25) {
+        for (i in 0 until 5) {
             songs.add(SongSearchResult("Song $i", "Artist ${i/2}"))
         }
     }
