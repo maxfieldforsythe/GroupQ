@@ -100,7 +100,7 @@ class QueueFragment: Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_song_search, parent, false)
+                .inflate(R.layout.list_item_queue, parent, false)
             return SongHolder(view)
         }
 
