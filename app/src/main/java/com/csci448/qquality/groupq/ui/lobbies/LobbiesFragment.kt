@@ -81,6 +81,11 @@ class LobbiesFragment: Fragment() {
 
         fun bind(lobby: LobbyData) {
             lobbyTextView.text = lobby.name
+
+            joinButton.setOnClickListener {
+                Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
+                callbacks?.onJoinLobby()
+            }
         }
 
 

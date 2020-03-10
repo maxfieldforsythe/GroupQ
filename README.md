@@ -1,7 +1,8 @@
 # Required items:
 
 1. Any usage instructions
-* General flow should be:
+* General flow should be:  
+
 Login screen buttons:
 Login -> Lobby List screen
 Register -> Registration screen

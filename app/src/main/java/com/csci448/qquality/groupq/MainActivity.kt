@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onLoginPressed() {
         // TODO implement user auth handling. Should that be done in separate activity?
-        Toast.makeText(this, "Wrong Fragment launched for testing", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Wrong Fragment launched for testing", Toast.LENGTH_SHORT).show()
 
         // Don't add to back stack after login
         // TODO launch the correct fragment
