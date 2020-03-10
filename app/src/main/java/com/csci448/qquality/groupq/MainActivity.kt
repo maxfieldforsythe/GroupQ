@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
         // Don't add to back stack after login
         // TODO launch the correct fragment
-        val fragment = SongSearchFragment()
+        val fragment = QueueFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
@@ -43,9 +43,10 @@ class MainActivity : AppCompatActivity(), Callbacks {
         // TODO implement change of fragment
         Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
 
-        val fragment = QueueFragment()
+        val fragment = RegisterFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 
