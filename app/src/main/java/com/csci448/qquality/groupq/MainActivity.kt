@@ -55,6 +55,18 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .commit()
     }
 
+
+    override fun onRegisterSubmitPressed() {
+        Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
+
+        val fragment = LobbiesFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
     override fun onGoToSongSearch() {
         val fragment = SongSearchFragment()
         supportFragmentManager.beginTransaction()

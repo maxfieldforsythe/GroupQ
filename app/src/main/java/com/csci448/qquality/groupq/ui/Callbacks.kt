@@ -7,4 +7,5 @@ interface Callbacks {
     fun onLobbyCreated()
     fun onJoinLobby()
     fun onCreateNewLobby()
+    fun onRegisterSubmitPressed()
 }
