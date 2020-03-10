@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
 
         // Don't add to back stack after login
         // TODO launch the correct fragment
-        val fragment = SongSearchFragment()
+        val fragment = RegisterFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
