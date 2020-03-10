@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.csci448.qquality.groupq.ui.Callbacks
+import com.csci448.qquality.groupq.ui.createlobby.CreateLobbyFragment
+import com.csci448.qquality.groupq.ui.lobbies.LobbiesFragment
 import com.csci448.qquality.groupq.ui.login.LoginFragment
 import com.csci448.qquality.groupq.ui.queue.QueueFragment
 import com.csci448.qquality.groupq.ui.registration.RegisterFragment
@@ -34,10 +36,11 @@ class MainActivity : AppCompatActivity(), Callbacks {
         // Don't add to back stack after login
         // TODO launch the correct fragment
 
-        val fragment = QueueFragment()
+        val fragment = LobbiesFragment()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 
@@ -58,4 +61,32 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()    }
+
+
+    override fun onCreateLobbyPressed() {
+        val fragment = CreateLobbyFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
+    override fun onJoinLobby() {
+        val fragment = QueueFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
+    override fun onCreateNewLobby() {
+        val fragment = CreateLobbyFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 }
+
