@@ -3,12 +3,13 @@ package com.csci448.qquality.groupq
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.csci448.qquality.groupq.ui.Callbacks
 import com.csci448.qquality.groupq.ui.login.LoginFragment
 import com.csci448.qquality.groupq.ui.queue.QueueFragment
 import com.csci448.qquality.groupq.ui.registration.RegisterFragment
 import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
 
-class MainActivity : AppCompatActivity(), LoginFragment.Callbacks {
+class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

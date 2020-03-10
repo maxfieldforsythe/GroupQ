@@ -10,17 +10,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.csci448.qquality.groupq.R
+import com.csci448.qquality.groupq.ui.Callbacks
 
 class LoginFragment : Fragment() {
 
     /*
     * Required Callbacks interface for hosting activities
      */
-    interface Callbacks {
-        // TODO handle user authentification. For now just a dummy login button
-        fun onLoginPressed()
-        fun onRegisterPressed()
-    }
+//    interface Callbacks {
+//        // TODO handle user authentification. For now just a dummy login button
+//        fun onLoginPressed()
+//        fun onRegisterPressed()
+//    }
 
     private var callbacks: Callbacks? = null
     private lateinit var loginButton: Button
