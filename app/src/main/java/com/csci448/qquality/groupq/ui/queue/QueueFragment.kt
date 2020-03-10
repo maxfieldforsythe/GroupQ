@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.SongSearchResult
+import com.csci448.qquality.groupq.ui.Callbacks
 import com.csci448.qquality.groupq.ui.login.LoginFragment
 import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
 
 
 class QueueFragment: Fragment() {
 
-    private var callbacks: LoginFragment.Callbacks? = null
+    private var callbacks: Callbacks? = null
     private lateinit var queueViewModel: QueueViewModel
     private lateinit var searchRecyclerView: RecyclerView
     private lateinit var adapter: SongQueueAdapter
@@ -29,7 +30,7 @@ class QueueFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callbacks = context as LoginFragment.Callbacks
+        callbacks = context as Callbacks
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,7 @@ class QueueFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         searchButton.setOnClickListener {
-            callbacks?.onLoginPressed()
+            callbacks?.onGoToSongSearch()
         }
     }
 
