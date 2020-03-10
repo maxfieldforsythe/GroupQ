@@ -15,47 +15,60 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="95dp"
             android:layout_height="13dp"
+            android:layout_marginTop="30dp"
             android:background="#3AA2B1"
-            tools:layout_editor_absoluteX="27dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/imageButton6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_back"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="249dp" />
+            app:layout_constraintBottom_toTopOf="@+id/search_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_back" />
 
         <ImageButton
             android:id="@+id/imageButton7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_marginTop="18dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_next"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar3"
+            app:srcCompat="@drawable/ic_next" />
 
         <ImageButton
             android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
             android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/ic_play_button"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="142dp" />
+            app:layout_constraintBottom_toTopOf="@+id/imageButton6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+            app:srcCompat="@drawable/ic_play_button" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/search_button"
-            tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="347dp" />
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/queue_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </LinearLayout>

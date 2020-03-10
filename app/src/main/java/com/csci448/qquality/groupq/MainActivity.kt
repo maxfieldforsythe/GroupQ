@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
         // Don't add to back stack after login
         // TODO launch the correct fragment
 
-        val fragment = RegisterFragment()
+        val fragment = QueueFragment()
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
