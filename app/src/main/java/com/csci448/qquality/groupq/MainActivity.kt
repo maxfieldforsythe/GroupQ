@@ -53,5 +53,6 @@ class MainActivity : AppCompatActivity(), Callbacks {
         val fragment = SongSearchFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
             .commit()    }
 }
