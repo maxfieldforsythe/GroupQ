@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="16dp">
 
             <TextView
                 android:id="@+id/textView10"
@@ -115,15 +115,17 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_weight="1"
+                android:layout_marginLeft="100dp"
                 android:text="I agree to GroupQ TOS"
                 android:textColor="#000000" />
-        </LinearLayout>
 
-        <Switch
-            android:id="@+id/tos_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            <Switch
+                android:id="@+id/tos_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginRight="100dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
