@@ -48,4 +48,10 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+    override fun onGoToSongSearch() {
+        val fragment = SongSearchFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()    }
 }

@@ -62,7 +62,7 @@ class QueueFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         searchButton.setOnClickListener {
-            callbacks?.onLoginPressed()
+            callbacks?.onGoToSongSearch()
         }
     }
 
