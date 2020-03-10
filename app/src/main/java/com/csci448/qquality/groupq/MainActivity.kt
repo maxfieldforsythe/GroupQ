@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
 
     override fun onCreateNewLobby() {
-        val fragment = CreateLobbyFragment()
+        val fragment = QueueFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
