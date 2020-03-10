@@ -43,7 +43,6 @@ class LobbiesFragment: Fragment() {
         val view = inflater.inflate(R.layout.lobby_list, container, false)
 
         lobbiesRecyclerView = view.findViewById(R.id.lobby_recycler)
-        joinButton = view.findViewById(R.id.join_button)
         hostNewLobbyButton = view.findViewById(R.id.host_new_lobby_button)
         lobbiesRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -54,15 +53,17 @@ class LobbiesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        joinButton.setOnClickListener {
-            Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
-            callbacks?.onJoinLobby()
-        }
-
         hostNewLobbyButton.setOnClickListener {
             Toast.makeText(context, "Creating a lobby!", Toast.LENGTH_SHORT).show()
             callbacks?.onCreateNewLobby()
         }
+
+        /*I need this function to be somewhere else, because joinButton is out of scope here
+
+        joinButton.setOnClickListener {
+            Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
+            callbacks?.onJoinLobby()
+        }*/
 
     }
 
@@ -81,6 +82,8 @@ class LobbiesFragment: Fragment() {
         fun bind(lobby: LobbyData) {
             lobbyTextView.text = lobby.name
         }
+
+
     }
 
 

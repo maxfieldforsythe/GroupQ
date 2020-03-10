@@ -36,7 +36,7 @@ class CreateLobbyFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.registry_screen, container, false)
+        val view = inflater.inflate(R.layout.lobby_creation, container, false)
 
         lobbyNameEditText = view.findViewById(R.id.lobby_name_edit_text)
         passwordEditText = view.findViewById(R.id.lobby_password_edit_text)
@@ -57,7 +57,7 @@ class CreateLobbyFragment: Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            callbacks?.onCreateLobbyPressed()
+            callbacks?.onLobbyCreated()
         }
     }
 

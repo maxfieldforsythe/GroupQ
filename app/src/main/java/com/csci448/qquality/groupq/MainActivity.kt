@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .addToBackStack(null)
             .commit()    }
 
-
-    override fun onCreateLobbyPressed() {
-        val fragment = CreateLobbyFragment()
+    /**
+     * This function handles moving from the create a lobby screen to the queue screen
+     */
+    override fun onLobbyCreated() {
+        val fragment = QueueFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
@@ -80,9 +82,11 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .commit()
     }
 
-
+    /**
+     * This function handles moving from the lobby list screen to the create a lobby screen
+     */
     override fun onCreateNewLobby() {
-        val fragment = QueueFragment()
+        val fragment = CreateLobbyFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
