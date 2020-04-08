@@ -26,6 +26,7 @@ class QueueFragment: Fragment() {
     private lateinit var searchRecyclerView: RecyclerView
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
+    private lateinit var addSongButton: Button
 
 
     override fun onAttach(context: Context) {
@@ -53,7 +54,7 @@ class QueueFragment: Fragment() {
         searchRecyclerView = view.findViewById(R.id.queue_recycler)
         searchRecyclerView.layoutManager = LinearLayoutManager(context)
         searchButton = view.findViewById(R.id.search_button)
-
+        addSongButton = view.findViewById(R.id.add_url_button)
         updateUI()
         return view
     }
@@ -63,6 +64,9 @@ class QueueFragment: Fragment() {
 
         searchButton.setOnClickListener {
             callbacks?.onGoToSongSearch()
+        }
+        addSongButton.setOnClickListener{
+            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -1,5 +1,6 @@
 package com.csci448.qquality.groupq.ui.registration
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.csci448.qquality.groupq.R
+import com.csci448.qquality.groupq.ui.Callbacks
 
 
 class RegisterFragment: Fragment() {
 
+    private var callbacks: Callbacks? = null
     private lateinit var registerViewModel: RegisterViewModel
     private lateinit var registerSubmitButton: Button
     private lateinit var tosSwitch: Switch
@@ -60,8 +63,17 @@ class RegisterFragment: Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            callbacks?.onRegisterSubmitPressed()
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+        callbacks = null
+    }
 }
