@@ -50,14 +50,7 @@ class CreateLobbyFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         createLobbyButton.setOnClickListener {
-
-            Toast.makeText(
-                context,
-                "Congratulations! You have created a lobby!",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            callbacks?.onLobbyCreated()
+            createLobby()
         }
     }
 
@@ -69,5 +62,16 @@ class CreateLobbyFragment: Fragment() {
     override fun onDetach() {
         super.onDetach()
         callbacks = null
+    }
+
+    private fun createLobby() {
+        if (lobbyNameEditText.text.length < 1){
+            Toast.makeText(requireContext(), "Add a lobby name!", Toast.LENGTH_SHORT).show()
+        } else {
+            createLobbyViewModel.createLobby(lobbyNameEditText.text.toString())
+
+            // advnace to next screen
+            callbacks?.onLobbyCreated()
+        }
     }
 }

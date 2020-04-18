@@ -2,6 +2,8 @@ package com.csci448.qquality.groupq.ui.lobbies
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.LobbyData
 import com.csci448.qquality.groupq.ui.Callbacks
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.firebase.ui.firestore.SnapshotParser
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.extensions.LayoutContainer
+
+private const val LOG_TAG = "448.LobbiesFrag"
 
 class LobbiesFragment: Fragment() {
 
@@ -33,6 +43,10 @@ class LobbiesFragment: Fragment() {
         val factory = LobbiesViewModelFactory()
         lobbiesViewModel = ViewModelProvider(this, factory)
             .get(LobbiesViewModel::class.java)
+
+        // Cheater way, get the lobbies early so we have them in time to populate recycler view
+        // TODO find a better way to observe the data
+        lobbiesViewModel.getLobbiesList()
     }
 
     override fun onCreateView(
@@ -67,10 +81,53 @@ class LobbiesFragment: Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callbacks = context as Callbacks
+    }
+
+
     private fun updateUI() {
-        val songs = lobbiesViewModel.lobbies
-        adapter = LobbyAdapter(songs)
+        // replace this with lobbies from DB
+        val lobbies = lobbiesViewModel.lobbies
+
+        adapter = LobbyAdapter(lobbies)
         lobbiesRecyclerView.adapter = adapter
+
+
+        // Firestore Recycler
+
+//        val query = FirebaseFirestore.getInstance().collection("lobbies")
+//            .orderBy("name")
+//            .limit(50)
+//
+//        //cofigureRecyclerAdapeter options
+//        // not sure if it will bind right since doc has3 fields
+//        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
+//            .setQuery(query, object : SnapshotParser<LobbyData> {
+//                override fun parseSnapshot(snapshot: DocumentSnapshot): LobbyData {
+//                    return snapshot.toObject(LobbyData::class.java)!!.also{
+//                        // not sure if this line is right/if it does anything but it isnt the problem
+//                        it.name = snapshot.get("name").toString()
+//                    }
+//                }
+//            })
+//            .setLifecycleOwner(this)
+//            .build()
+
+
+//        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
+//            .setQuery(query, LobbyData::class.java)
+//            .setLifecycleOwner(this)
+//            .build()
+//
+//        Log.d(LOG_TAG, "builder made")
+//
+//
+//        val fsAdapter = FirestoreLobbyAdapter(builder)
+//        lobbiesRecyclerView.adapter = fsAdapter
+
+
     }
 
 
@@ -110,10 +167,47 @@ class LobbiesFragment: Fragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callbacks = context as Callbacks
-    }
+//    private inner class FirestoreLobbyAdapter(options: FirestoreRecyclerOptions<LobbyData>) :
+//    FirestoreRecyclerAdapter<LobbyData, FirestoreLobbyAdapter.ViewHolder>(options) {
+//        override fun onCreateViewHolder(
+//            parent: ViewGroup,
+//            viewType: Int
+//        ): FirestoreLobbyAdapter.ViewHolder {
+//            Log.d(LOG_TAG, "onCreateViewHolder called")
+//
+//
+//            val view = LayoutInflater.from(parent.context)
+//                .inflate(R.layout.list_item_lobby, parent, false)
+//
+//            return ViewHolder(view)
+//        }
+//
+//        override fun onBindViewHolder(
+//            holder: FirestoreLobbyAdapter.ViewHolder,
+//            position: Int,
+//            model: LobbyData
+//        ) {
+//            Log.d(LOG_TAG, "onBindViewHolder calledd")
+//
+//            val lobbyTextView: TextView? = view?.findViewById(R.id.lobby_name)
+//            val joinButton: Button? = view?.findViewById(R.id.join_button)
+//
+//
+//            holder.apply {
+//                holder.nameTextView.text = model.name
+//            }
+//        }
+//
+//        inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
+//        LayoutContainer {
+//            init {
+//                Log.d(LOG_TAG, "creating viewholder")
+//            }
+//
+//            val nameTextView = containerView.findViewById(R.id.lobby_name) as TextView
+//        }
+//    }
+
 
 
 }
