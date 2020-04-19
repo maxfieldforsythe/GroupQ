@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.csci448.qquality.groupq.ui.Callbacks
 import com.csci448.qquality.groupq.ui.login.LoginFragment
 import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
 
+private const val LOBBY_NAME_ARG = "lobby_name_arg"
 
 class QueueFragment: Fragment() {
 
@@ -27,6 +29,8 @@ class QueueFragment: Fragment() {
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
     private lateinit var addSongButton: Button
+
+    private lateinit var lobbyName: String
 
 
     override fun onAttach(context: Context) {
@@ -40,6 +44,11 @@ class QueueFragment: Fragment() {
         val factory = QueueViewModelFactory()
         queueViewModel = ViewModelProvider(this, factory)
             .get(QueueViewModel::class.java)
+
+        // Get the lobby name from the arguments for use in getting the queue
+        lobbyName = arguments?.getString(LOBBY_NAME_ARG) ?: "Error Lobby"
+
+
     }
 
     override fun onCreateView(
@@ -49,7 +58,10 @@ class QueueFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.queue_screen, container, false)
 
-
+        // Get the action bar and set the title and display back button
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            title = "${lobbyName}: Queue"
+        }
 
         searchRecyclerView = view.findViewById(R.id.queue_recycler)
         searchRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -67,6 +79,15 @@ class QueueFragment: Fragment() {
         }
         addSongButton.setOnClickListener{
             Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // clear action bar text
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            setTitle(R.string.app_name)
         }
     }
 
@@ -109,6 +130,22 @@ class QueueFragment: Fragment() {
             return SongHolder(view)
         }
 
+    }
+
+
+    companion object {
+
+        // new instance function to get a specific lobby
+        fun newInstance(lobbyName: String) : QueueFragment {
+            val args = Bundle().apply {
+                putString(LOBBY_NAME_ARG, lobbyName)
+            }
+
+            return QueueFragment().apply {
+                arguments = args
+            }
+
+        }
     }
 
 

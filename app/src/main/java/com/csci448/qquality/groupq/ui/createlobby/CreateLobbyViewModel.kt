@@ -54,7 +54,7 @@ class CreateLobbyViewModel : ViewModel() {
 
             // push to database
             // TODO should collection path be hardcoded?
-            database.collection("lobbies").document(lobby["name"] ?: "Error lobby")
+            database.collection("lobbies").document(lobby["name"] ?: "Error Lobby")
                 .set(lobby)
                 .addOnSuccessListener { docRef ->
                     Log.d(LOG_TAG, "Updated document: $docRef")
