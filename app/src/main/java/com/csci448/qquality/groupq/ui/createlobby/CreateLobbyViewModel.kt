@@ -17,9 +17,28 @@ class CreateLobbyViewModel : ViewModel() {
     // TODO as of right now, lobby creation is just done with the name string
     fun createLobby(name: String): Boolean {
         Log.d(LOG_TAG, "createLobby called()")
-        Log.d(LOG_TAG, "db is ${database.toString()}")
 
-        // TODO check if lobby already exists and return false if so
+
+        //  TODO don't allow lobby overwrites
+//        // check if lobby already exists and return false if so
+//        var docExists = false
+//        var docRef = database.collection("lobbies").document(name);
+//        docRef.get().addOnSuccessListener { _ ->
+//            docExists = true
+//        }
+//
+//        database.collection("lobbies").document(name).get()
+//            .addOnSuccessListener { task ->
+//                if (task.exists()) {
+//                    docExists = true
+//                }
+//            }
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful || task.isComplete) {
+//                    docExists = true
+//                }
+//            }
+
         if (false) {
             return false
         } else {
@@ -35,10 +54,10 @@ class CreateLobbyViewModel : ViewModel() {
 
             // push to database
             // TODO should collection path be hardcoded?
-            database.collection("lobbies")
-                .add(lobby)
+            database.collection("lobbies").document(lobby["name"] ?: "Error lobby")
+                .set(lobby)
                 .addOnSuccessListener { docRef ->
-                    Log.d(LOG_TAG, "Added document: $docRef")
+                    Log.d(LOG_TAG, "Updated document: $docRef")
                 }
                 .addOnFailureListener { e ->
                     Log.w(LOG_TAG, "Error adding document", e)

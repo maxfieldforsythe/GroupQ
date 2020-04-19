@@ -65,13 +65,21 @@ class CreateLobbyFragment: Fragment() {
     }
 
     private fun createLobby() {
+        //TODO check if lobby name already exists
         if (lobbyNameEditText.text.length < 1){
             Toast.makeText(requireContext(), "Add a lobby name!", Toast.LENGTH_SHORT).show()
         } else {
-            createLobbyViewModel.createLobby(lobbyNameEditText.text.toString())
+            val lobbyName = lobbyNameEditText.text.toString()
 
-            // advnace to next screen
-            callbacks?.onLobbyCreated()
+            if (createLobbyViewModel.createLobby(lobbyName)) {
+
+                //TODO add a lobby password
+                // advance to next screen
+                callbacks?.onLobbyCreated(lobbyName)
+            } else {
+                Toast.makeText(requireContext(), "A lobby with this name already exists!", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 }

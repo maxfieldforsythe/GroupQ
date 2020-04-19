@@ -2,7 +2,6 @@ package com.csci448.qquality.groupq.ui.lobbies
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +18,6 @@ import com.csci448.qquality.groupq.data.LobbyData
 import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.firebase.ui.firestore.SnapshotParser
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.extensions.LayoutContainer
 
@@ -44,9 +41,6 @@ class LobbiesFragment: Fragment() {
         lobbiesViewModel = ViewModelProvider(this, factory)
             .get(LobbiesViewModel::class.java)
 
-        // Cheater way, get the lobbies early so we have them in time to populate recycler view
-        // TODO find a better way to observe the data
-        lobbiesViewModel.getLobbiesList()
     }
 
     override fun onCreateView(
@@ -71,14 +65,6 @@ class LobbiesFragment: Fragment() {
             Toast.makeText(context, "Creating a lobby!", Toast.LENGTH_SHORT).show()
             callbacks?.onCreateNewLobby()
         }
-
-        /*I need this function to be somewhere else, because joinButton is out of scope here
-
-        joinButton.setOnClickListener {
-            Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
-            callbacks?.onJoinLobby()
-        }*/
-
     }
 
     override fun onAttach(context: Context) {
@@ -87,35 +73,17 @@ class LobbiesFragment: Fragment() {
     }
 
 
+    // TODO add option to updateUI with a search string
     private fun updateUI() {
-        // replace this with lobbies from DB
-//        val lobbies = lobbiesViewModel.lobbies
-//
-//        adapter = LobbyAdapter(lobbies)
-//        lobbiesRecyclerView.adapter = adapter
-//
 
         // Firestore Recycler
-
+        // TODO add a searchbar for limiting the amount of results in the query
         val query = FirebaseFirestore.getInstance().collection("lobbies")
             .orderBy("name")
-            .limit(50)
-
-//        //cofigureRecyclerAdapeter options
-//        // not sure if it will bind right since doc has3 fields
-//        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
-//            .setQuery(query, object : SnapshotParser<LobbyData> {
-//                override fun parseSnapshot(snapshot: DocumentSnapshot): LobbyData {
-//                    return snapshot.toObject(LobbyData::class.java)!!.also{
-//                        // not sure if this line is right/if it does anything but it isnt the problem
-//                        it.name = snapshot.get("name").toString()
-//                    }
-//                }
-//            })
-//            .setLifecycleOwner(this)
-//            .build()
+            .limit(100) //TODO eliminate this in production.sending all results could be dangerous
 
 
+//        //configureRecyclerAdapeter options
         val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
             .setQuery(query, LobbyData::class.java)
             .setLifecycleOwner(this)
@@ -131,45 +99,32 @@ class LobbiesFragment: Fragment() {
     }
 
 /* //Here lies the old code for the recycler view w/o the firebase
-
-
     private inner class LobbyHolder(val view: View) : RecyclerView.ViewHolder(view) {
-
         val lobbyTextView: TextView = itemView.findViewById(R.id.lobby_name)
         val joinButton: Button = itemView.findViewById(R.id.join_button)
 
         fun bind(lobby: LobbyData) {
             lobbyTextView.text = lobby.name
-
             joinButton.setOnClickListener {
                 Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
                 callbacks?.onJoinLobby()
             }
         }
-
-
     }
-
 
     private inner class LobbyAdapter(private val lobbies: List<LobbyData>) :
         RecyclerView.Adapter<LobbyHolder>() {
-
         override fun getItemCount() : Int { return lobbies.size }
-
         override fun onBindViewHolder(holder: LobbyHolder, position: Int) {
             val lobby = lobbies[position]
             holder.bind(lobby)
         }
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LobbyHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_item_lobby, parent, false)
             return LobbyHolder(view)
         }
-
     }
-
-
  */
 
     // Firestore adapter to display query results in recycler view
@@ -191,30 +146,24 @@ class LobbiesFragment: Fragment() {
         override fun onBindViewHolder(
             holder: FirestoreLobbyAdapter.ViewHolder,
             position: Int,
-            model: LobbyData
+            lobby: LobbyData
         ) {
             Log.d(LOG_TAG, "onBindViewHolder calledd")
 
-            //val lobbyTextView: TextView? = view?.findViewById(R.id.lobby_name)
-            //val joinButton: Button? = view?.findViewById(R.id.join_button)
-
-
             holder.apply {
-                nameTextView.text = model.name
+                nameTextView.text = lobby.name
                 joinButton.setOnClickListener {
                     Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
-                    //TODO adapt onJoinLobby to get new instance with a lobby name
-                    callbacks?.onJoinLobby()
+
+                    // join the lobby if button pressed
+                    callbacks?.onJoinLobby(lobby.name)
                 }
             }
         }
 
         inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
         LayoutContainer {
-            init {
-                Log.d(LOG_TAG, "creating viewholder")
-            }
-
+            // set fields for view holder
             val nameTextView = containerView.findViewById(R.id.lobby_name) as TextView
             val joinButton = containerView.findViewById(R.id.join_button) as Button
         }

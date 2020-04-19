@@ -18,13 +18,6 @@ class LobbiesViewModel : ViewModel() {
 
     val lobbies = mutableListOf<LobbyData>()
 
-    init{
-        for (i in 0 until 5){
-            lobbies.add(LobbyData("lobby $i"))
-        }
-    }
-
-
     fun getLobbiesList(): List<LobbyData> {
 
         // clear out any old data
