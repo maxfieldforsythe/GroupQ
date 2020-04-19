@@ -31,8 +31,8 @@ class LobbiesFragment: Fragment() {
     private var callbacks: Callbacks? = null
     private lateinit var lobbiesViewModel: LobbiesViewModel
     private lateinit var lobbiesRecyclerView: RecyclerView
-    private lateinit var adapter: LobbyAdapter
-    private lateinit var joinButton: Button
+    // private lateinit var adapter: LobbyAdapter
+    // private lateinit var joinButton: Button
     private lateinit var hostNewLobbyButton: Button
 
 
@@ -89,18 +89,18 @@ class LobbiesFragment: Fragment() {
 
     private fun updateUI() {
         // replace this with lobbies from DB
-        val lobbies = lobbiesViewModel.lobbies
-
-        adapter = LobbyAdapter(lobbies)
-        lobbiesRecyclerView.adapter = adapter
-
+//        val lobbies = lobbiesViewModel.lobbies
+//
+//        adapter = LobbyAdapter(lobbies)
+//        lobbiesRecyclerView.adapter = adapter
+//
 
         // Firestore Recycler
 
-//        val query = FirebaseFirestore.getInstance().collection("lobbies")
-//            .orderBy("name")
-//            .limit(50)
-//
+        val query = FirebaseFirestore.getInstance().collection("lobbies")
+            .orderBy("name")
+            .limit(50)
+
 //        //cofigureRecyclerAdapeter options
 //        // not sure if it will bind right since doc has3 fields
 //        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
@@ -116,19 +116,21 @@ class LobbiesFragment: Fragment() {
 //            .build()
 
 
-//        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
-//            .setQuery(query, LobbyData::class.java)
-//            .setLifecycleOwner(this)
-//            .build()
-//
-//        Log.d(LOG_TAG, "builder made")
-//
-//
-//        val fsAdapter = FirestoreLobbyAdapter(builder)
-//        lobbiesRecyclerView.adapter = fsAdapter
+        val builder = FirestoreRecyclerOptions.Builder<LobbyData>()
+            .setQuery(query, LobbyData::class.java)
+            .setLifecycleOwner(this)
+            .build()
+
+        Log.d(LOG_TAG, "builder made")
+
+
+        val fsAdapter = FirestoreLobbyAdapter(builder)
+        lobbiesRecyclerView.adapter = fsAdapter
 
 
     }
+
+/* //Here lies the old code for the recycler view w/o the firebase
 
 
     private inner class LobbyHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -167,46 +169,56 @@ class LobbiesFragment: Fragment() {
 
     }
 
-//    private inner class FirestoreLobbyAdapter(options: FirestoreRecyclerOptions<LobbyData>) :
-//    FirestoreRecyclerAdapter<LobbyData, FirestoreLobbyAdapter.ViewHolder>(options) {
-//        override fun onCreateViewHolder(
-//            parent: ViewGroup,
-//            viewType: Int
-//        ): FirestoreLobbyAdapter.ViewHolder {
-//            Log.d(LOG_TAG, "onCreateViewHolder called")
-//
-//
-//            val view = LayoutInflater.from(parent.context)
-//                .inflate(R.layout.list_item_lobby, parent, false)
-//
-//            return ViewHolder(view)
-//        }
-//
-//        override fun onBindViewHolder(
-//            holder: FirestoreLobbyAdapter.ViewHolder,
-//            position: Int,
-//            model: LobbyData
-//        ) {
-//            Log.d(LOG_TAG, "onBindViewHolder calledd")
-//
-//            val lobbyTextView: TextView? = view?.findViewById(R.id.lobby_name)
-//            val joinButton: Button? = view?.findViewById(R.id.join_button)
-//
-//
-//            holder.apply {
-//                holder.nameTextView.text = model.name
-//            }
-//        }
-//
-//        inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
-//        LayoutContainer {
-//            init {
-//                Log.d(LOG_TAG, "creating viewholder")
-//            }
-//
-//            val nameTextView = containerView.findViewById(R.id.lobby_name) as TextView
-//        }
-//    }
+
+ */
+
+    // Firestore adapter to display query results in recycler view
+    private inner class FirestoreLobbyAdapter(options: FirestoreRecyclerOptions<LobbyData>) :
+    FirestoreRecyclerAdapter<LobbyData, FirestoreLobbyAdapter.ViewHolder>(options) {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): FirestoreLobbyAdapter.ViewHolder {
+            Log.d(LOG_TAG, "onCreateViewHolder called")
+
+
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item_lobby, parent, false)
+
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(
+            holder: FirestoreLobbyAdapter.ViewHolder,
+            position: Int,
+            model: LobbyData
+        ) {
+            Log.d(LOG_TAG, "onBindViewHolder calledd")
+
+            //val lobbyTextView: TextView? = view?.findViewById(R.id.lobby_name)
+            //val joinButton: Button? = view?.findViewById(R.id.join_button)
+
+
+            holder.apply {
+                nameTextView.text = model.name
+                joinButton.setOnClickListener {
+                    Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
+                    //TODO adapt onJoinLobby to get new instance with a lobby name
+                    callbacks?.onJoinLobby()
+                }
+            }
+        }
+
+        inner class ViewHolder(override val containerView: View): RecyclerView.ViewHolder(containerView),
+        LayoutContainer {
+            init {
+                Log.d(LOG_TAG, "creating viewholder")
+            }
+
+            val nameTextView = containerView.findViewById(R.id.lobby_name) as TextView
+            val joinButton = containerView.findViewById(R.id.join_button) as Button
+        }
+    }
 
 
 
