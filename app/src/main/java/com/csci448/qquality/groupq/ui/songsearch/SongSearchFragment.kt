@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.SongSearchResult
+import com.csci448.qquality.groupq.ui.songsearch.ApiSearch
 
 // TODO do this differently so source can be used functionally
 private val SOURCES = arrayOf("YouTube", "SoundCloud")
@@ -36,6 +37,19 @@ class SongSearchFragment : Fragment() {
         val factory = SongSearchViewModelFactory()
         songSearchViewModel = ViewModelProvider(this, factory)
             .get(SongSearchViewModel::class.java)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchButton.setOnClickListener {
+            val apiSearch = ApiSearch()
+
+            apiSearch.searchVideos()
+
+
+        }
+
     }
 
     override fun onCreateView(
