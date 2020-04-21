@@ -88,7 +88,7 @@ class QueueFragment: Fragment() {
 
         fun bind(song: SongSearchResult) {
             titleTextView.text = song.title
-            artistTextView.text = song.artist
+
         }
     }
 
