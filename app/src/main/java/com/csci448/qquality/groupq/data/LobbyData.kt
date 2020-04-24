@@ -1,6 +1,8 @@
 package com.csci448.qquality.groupq.data
 
-data class LobbyData(var name: String){
+import java.util.*
+
+data class LobbyData(var name: String, var uuid: String){
     // default constructor needed for Firebase
-    constructor() : this("")
+    constructor() : this("", "")
 }

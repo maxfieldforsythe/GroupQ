@@ -4,8 +4,8 @@ interface Callbacks {
     fun onLoginPressed()
     fun onRegisterPressed()
     fun onGoToSongSearch()
-    fun onLobbyCreated(name: String)
-    fun onJoinLobby(name: String)
+    fun onLobbyCreated(uuid: String, name: String)
+    fun onJoinLobby(uuid: String, name: String)
     fun onCreateNewLobby()
     fun onRegisterSubmitPressed()
 }

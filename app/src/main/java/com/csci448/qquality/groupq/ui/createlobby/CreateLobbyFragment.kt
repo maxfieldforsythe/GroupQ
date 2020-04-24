@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.ui.Callbacks
+import java.util.*
 
 class CreateLobbyFragment: Fragment() {
 
@@ -65,17 +66,20 @@ class CreateLobbyFragment: Fragment() {
     }
 
     private fun createLobby() {
+        // get a random UUID for lobby
+        val lobbyUUIDString = UUID.randomUUID().toString()
+        // get the lobby name
+        val lobbyName = lobbyNameEditText.text.toString()
+
         //TODO check if lobby name already exists
-        if (lobbyNameEditText.text.length < 1){
+        if (lobbyName.length < 1){
             Toast.makeText(requireContext(), "Add a lobby name!", Toast.LENGTH_SHORT).show()
         } else {
-            val lobbyName = lobbyNameEditText.text.toString()
-
-            if (createLobbyViewModel.createLobby(lobbyName)) {
+            if (createLobbyViewModel.createLobby(lobbyName, lobbyUUIDString)) {
 
                 //TODO add a lobby password
                 // advance to next screen
-                callbacks?.onLobbyCreated(lobbyName)
+                callbacks?.onLobbyCreated(lobbyUUIDString, lobbyName)
             } else {
                 Toast.makeText(requireContext(), "A lobby with this name already exists!", Toast.LENGTH_SHORT)
                     .show()

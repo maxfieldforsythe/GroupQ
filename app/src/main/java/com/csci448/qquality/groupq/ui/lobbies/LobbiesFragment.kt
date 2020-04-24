@@ -156,7 +156,7 @@ class LobbiesFragment: Fragment() {
                     Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
 
                     // join the lobby if button pressed
-                    callbacks?.onJoinLobby(lobby.name)
+                    callbacks?.onJoinLobby(lobby.uuid, lobby.name)
                 }
             }
         }

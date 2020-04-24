@@ -77,9 +77,9 @@ class MainActivity : AppCompatActivity(), Callbacks {
     /**
      * This function handles moving from the create a lobby screen to the queue screen
      */
-    override fun onLobbyCreated(name: String) {
+    override fun onLobbyCreated(uuid: String, name: String) {
         //  get lobby spcific fragment
-        val fragment = QueueFragment.newInstance(name)
+        val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null) //TODO dont add to backstack. going back should take you to lobbies list
@@ -87,9 +87,9 @@ class MainActivity : AppCompatActivity(), Callbacks {
     }
 
 
-    override fun onJoinLobby(name: String) {
+    override fun onJoinLobby(uuid: String, name: String) {
         // get lobby specific queue
-        val fragment = QueueFragment.newInstance(name)
+        val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)

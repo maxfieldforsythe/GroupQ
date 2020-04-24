@@ -2,6 +2,7 @@ package com.csci448.qquality.groupq.ui.queue
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
+import com.csci448.qquality.groupq.data.LobbyData
 import com.csci448.qquality.groupq.data.SongSearchResult
 import com.csci448.qquality.groupq.ui.Callbacks
-import com.csci448.qquality.groupq.ui.login.LoginFragment
-import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
+private const val LOG_TAG = "448.QueueFragment"
+
+private const val LOBBY_UUID_ARG = "lobby_uuid_arg"
 private const val LOBBY_NAME_ARG = "lobby_name_arg"
 
 class QueueFragment: Fragment() {
@@ -30,23 +37,35 @@ class QueueFragment: Fragment() {
     private lateinit var searchButton: Button
     private lateinit var addSongButton: Button
 
+    private lateinit var lobbyUUIDString: String
     private lateinit var lobbyName: String
+
+    private lateinit var database: FirebaseFirestore
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.d(LOG_TAG, "onAttach() called")
+
         callbacks = context as Callbacks
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(LOG_TAG, "onCreate() called")
+
+        // Get the database
+        database = Firebase.firestore
+        Log.d(LOG_TAG, "database retrieved: ${database.toString()}")
 
         // Get the ViewModel
         val factory = QueueViewModelFactory()
         queueViewModel = ViewModelProvider(this, factory)
             .get(QueueViewModel::class.java)
 
-        // Get the lobby name from the arguments for use in getting the queue
-        lobbyName = arguments?.getString(LOBBY_NAME_ARG) ?: "Error Lobby"
+        // Get the lobby uuid from the arguments for use in getting the queue
+        lobbyUUIDString = arguments?.getString(LOBBY_UUID_ARG) ?: "Error Lobby"
+        lobbyName = arguments?.getString(LOBBY_NAME_ARG) ?: "ERROR"
+        Log.d(LOG_TAG,"lobbyUUID is: $lobbyUUIDString")
 
 
     }
@@ -56,6 +75,8 @@ class QueueFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(LOG_TAG, "onCreateView() called")
+
         val view = inflater.inflate(R.layout.queue_screen, container, false)
 
         // Get the action bar and set the title and display back button
@@ -73,6 +94,7 @@ class QueueFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(LOG_TAG, "onViewCreated() called")
 
         searchButton.setOnClickListener {
             callbacks?.onGoToSongSearch()
@@ -136,8 +158,9 @@ class QueueFragment: Fragment() {
     companion object {
 
         // new instance function to get a specific lobby
-        fun newInstance(lobbyName: String) : QueueFragment {
+        fun newInstance(lobbyUUIDString: String, lobbyName: String) : QueueFragment {
             val args = Bundle().apply {
+                putString(LOBBY_UUID_ARG, lobbyUUIDString)
                 putString(LOBBY_NAME_ARG, lobbyName)
             }
 

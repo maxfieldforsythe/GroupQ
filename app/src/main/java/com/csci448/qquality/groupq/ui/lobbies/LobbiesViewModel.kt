@@ -30,7 +30,8 @@ class LobbiesViewModel : ViewModel() {
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
 
-                    lobbies.add(LobbyData(document.data.get("name").toString()))
+                    lobbies.add(LobbyData(document.data.get("name").toString(),
+                    document.data.get("uuid").toString()))
                 }
             }
             .addOnFailureListener { exception ->
