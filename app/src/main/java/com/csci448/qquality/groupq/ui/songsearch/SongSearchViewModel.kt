@@ -7,18 +7,24 @@ import com.google.firebase.ktx.Firebase
 
 class SongSearchViewModel() : ViewModel(){
 
+//<<<<<<< HEAD
     private val database = Firebase.firestore
 
-    val songs = mutableListOf<SongSearchResult>()
-
-    init {
-        for (i in 0 until 25) {
-            songs.add(SongSearchResult("Song $i", "Artist ${i/2}"))
-        }
-    }
+//    val songs = mutableListOf<SongSearchResult>() TODO git merge conflict
+//
+//    init {
+//        for (i in 0 until 25) {
+//            songs.add(SongSearchResult("Song $i", "Artist ${i/2}"))
+//        }
+//    }
 
     // Function to add a song to the queue in the database
     fun addToQueue(lobbyName: String) {
         // TODO add to database
     }
+//=======
+    var songs = mutableListOf<SongSearchResult>()
+
+
+//>>>>>>> youtube
 }

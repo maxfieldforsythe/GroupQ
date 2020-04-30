@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.SongSearchResult
+import org.json.JSONArray
+import org.json.JSONObject
+import java.net.URL
+
 
 // TODO do this differently so source can be used functionally
 private val SOURCES = arrayOf("YouTube", "SoundCloud")
@@ -19,12 +22,15 @@ private val SOURCES = arrayOf("YouTube", "SoundCloud")
 class SongSearchFragment : Fragment() {
     // TODO nick implement this and layout
 
+    private lateinit var query: String
+    private lateinit var result: JSONObject
+    private lateinit var items: JSONArray
     private lateinit var songSearchViewModel: SongSearchViewModel
 
     private lateinit var searchRecyclerView: RecyclerView
     private lateinit var adapter: SongSearchAdapter
 
-    private lateinit var searchButton: Button
+    private lateinit var searchButton2: Button
     private lateinit var searchEditText: EditText
     private lateinit var sourceSpinner: Spinner
 
@@ -38,6 +44,29 @@ class SongSearchFragment : Fragment() {
             .get(SongSearchViewModel::class.java)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        searchButton2.setOnClickListener {
+
+            query = searchEditText.getText().toString()
+            songSearchViewModel.songs =  mutableListOf<SongSearchResult>()
+            Thread(Runnable {
+                result = JSONObject(URL("https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=25&key=AIzaSyCL8nn2bP2rlzgeEserQnQpp0IYepN6Yas").readText())
+                items = result.getJSONArray("items")
+                for (i in 0 until items.length()) {
+                    val c: JSONObject = items.getJSONObject(i)
+                    val secondParse = c.getJSONObject("snippet")
+                    val title = secondParse.getString("title");
+                    songSearchViewModel.songs.add(SongSearchResult(title))
+                }
+            }).start()
+            updateUI()
+
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,7 +74,7 @@ class SongSearchFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_song_search, container, false)
 
-        searchButton = view.findViewById(R.id.search_button)
+        searchButton2 = view.findViewById(R.id.search_button2)
         searchEditText = view.findViewById(R.id.search_edit_text)
 
         sourceSpinner = view.findViewById(R.id.source_spinner)
@@ -76,7 +105,6 @@ class SongSearchFragment : Fragment() {
 
         fun bind(song: SongSearchResult) {
             titleTextView.text = song.title
-            artistTextView.text = song.artist
         }
     }
 

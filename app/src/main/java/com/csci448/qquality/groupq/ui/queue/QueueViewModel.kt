@@ -9,7 +9,7 @@ class QueueViewModel() : ViewModel(){
 
     init {
         for (i in 0 until 10) {
-            songs.add(SongSearchResult("Song $i", "Artist ${i/2}"))
+            songs.add(SongSearchResult("Song $i"))
         }
     }
 }
