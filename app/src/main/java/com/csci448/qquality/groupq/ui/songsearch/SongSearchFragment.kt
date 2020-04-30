@@ -153,6 +153,7 @@ class SongSearchFragment : Fragment() {
                 queuedSong.timeIn = Date(System.currentTimeMillis())
                 queuedSong.uuidString = UUID.randomUUID().toString()
                 // TODO set song URL
+                //queuedSong.url = song.url
 
                 // call the VM to add to the database
                 if(songSearchViewModel.addToQueue(queuedSong, lobbyUUIDString)) {
