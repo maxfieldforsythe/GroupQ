@@ -32,7 +32,6 @@ private const val LOBBY_UUID_ARG = "lobby_uuid_arg"
 private const val LOG_TAG = "448.SongSearchFrag"
 
 class SongSearchFragment : Fragment() {
-    // TODO nick implement this and layout
 
     private lateinit var query: String
     private lateinit var result: JSONObject
@@ -89,7 +88,7 @@ class SongSearchFragment : Fragment() {
                     val title = secondParse.getString("title");
                     songSearchViewModel.songs.add(SongSearchResult(title))
 
-                    if(i%5 == 0){
+                    if(i+1%5 == 0){
                         Log.d(LOG_TAG,"Added $i songs to list")
                     }
                 }
@@ -97,8 +96,9 @@ class SongSearchFragment : Fragment() {
             })
             thread.start()
 
+
             while(!threadIsFinished){
-                //wait
+                Thread.sleep(5)
             }
             //update UI once the thread finishes
             updateUI()
