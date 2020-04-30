@@ -45,6 +45,7 @@
 
             <EditText
                 android:id="@+id/lobby_name_edit_text"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -68,6 +69,7 @@
 
             <EditText
                 android:id="@+id/lobby_password_edit_text"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -91,6 +93,7 @@
 
             <EditText
                 android:id="@+id/lobby_reenter_password_edit_text"
+                android:maxLines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
