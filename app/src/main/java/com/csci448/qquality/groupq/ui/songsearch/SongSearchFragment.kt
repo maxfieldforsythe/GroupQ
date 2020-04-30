@@ -150,7 +150,7 @@ class SongSearchFragment : Fragment() {
             addButton.setOnClickListener {
                 var queuedSong = QueuedSong()
                 queuedSong.title = song.title
-                queuedSong.timeIn = Timestamp(System.currentTimeMillis())
+                queuedSong.timeIn = Date(System.currentTimeMillis())
                 queuedSong.uuidString = UUID.randomUUID().toString()
                 // TODO set song URL
 

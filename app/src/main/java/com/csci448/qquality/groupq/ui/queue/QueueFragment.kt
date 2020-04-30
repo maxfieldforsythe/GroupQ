@@ -15,13 +15,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
-import com.csci448.qquality.groupq.data.LobbyData
+import com.csci448.qquality.groupq.data.QueuedSong
 import com.csci448.qquality.groupq.data.SongSearchResult
 import com.csci448.qquality.groupq.ui.Callbacks
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.extensions.LayoutContainer
+import org.w3c.dom.Text
 
 private const val LOG_TAG = "448.QueueFragment"
 
@@ -32,10 +35,10 @@ class QueueFragment: Fragment() {
 
     private var callbacks: Callbacks? = null
     private lateinit var queueViewModel: QueueViewModel
-    private lateinit var searchRecyclerView: RecyclerView
+    private lateinit var queueRecyclerView: RecyclerView
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
-    private lateinit var addSongButton: Button
+    //private lateinit var addSongButton: Button
 
     private lateinit var lobbyUUIDString: String
     private lateinit var lobbyName: String
@@ -84,10 +87,10 @@ class QueueFragment: Fragment() {
             title = "${lobbyName}: Queue"
         }
 
-        searchRecyclerView = view.findViewById(R.id.queue_recycler)
-        searchRecyclerView.layoutManager = LinearLayoutManager(context)
+        queueRecyclerView = view.findViewById(R.id.queue_recycler)
+        queueRecyclerView.layoutManager = LinearLayoutManager(context)
         searchButton = view.findViewById(R.id.search_button)
-        addSongButton = view.findViewById(R.id.add_url_button)
+        //addSongButton = view.findViewById(R.id.add_url_button)
         updateUI()
         return view
     }
@@ -99,9 +102,9 @@ class QueueFragment: Fragment() {
         searchButton.setOnClickListener {
             callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
-        addSongButton.setOnClickListener{
-            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
-        }
+//        addSongButton.setOnClickListener{
+//            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     override fun onDestroyView() {
@@ -117,10 +120,63 @@ class QueueFragment: Fragment() {
 
 
     private fun updateUI() {
-        val songs = queueViewModel.songs
-        adapter = SongQueueAdapter(songs)
-        searchRecyclerView.adapter = adapter
+
+        // query DB for specific queue
+        val query = FirebaseFirestore.getInstance()
+            .collection("lobbies")
+            .document(lobbyUUIDString)
+            .collection("queue")
+            .orderBy("timeIn")
+            .limit(100)
+
+        // configure firestore recycler adapter options
+        val builder = FirestoreRecyclerOptions.Builder<QueuedSong>()
+            .setQuery(query, QueuedSong::class.java)
+            .setLifecycleOwner(this)
+            .build()
+
+        val fsAdapter = FireStoreQueueAdapter(builder)
+        queueRecyclerView.adapter = fsAdapter
+
+
+//        //old code
+//        val songs = queueViewModel.songs
+//        adapter = SongQueueAdapter(songs)
+//        queueRecyclerView.adapter = adapter
     }
+
+
+    // Firestore adapter to display Q from DB
+    private inner class FireStoreQueueAdapter(options: FirestoreRecyclerOptions<QueuedSong>)
+        : FirestoreRecyclerAdapter<QueuedSong, FireStoreQueueAdapter.ViewHolder>(options) {
+
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): FireStoreQueueAdapter.ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_item_queue, parent, false)
+
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(
+            holder: FireStoreQueueAdapter.ViewHolder,
+            position: Int,
+            model: QueuedSong
+        ) {
+            holder.apply {
+                titleTextView.text = model.title
+            }
+        }
+
+        inner class ViewHolder(override val containerView: View)
+            : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+            val titleTextView = containerView.findViewById<TextView>(R.id.song_title)
+        }
+    }
+
 
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
         // TODO make the addButton function

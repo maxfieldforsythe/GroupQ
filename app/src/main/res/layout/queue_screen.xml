@@ -22,13 +22,13 @@
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="65dp"
             android:text="@string/search_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/url_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
@@ -41,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/add_url_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
