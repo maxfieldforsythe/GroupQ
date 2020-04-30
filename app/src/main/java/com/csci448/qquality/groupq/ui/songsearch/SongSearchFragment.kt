@@ -76,8 +76,11 @@ class SongSearchFragment : Fragment() {
         searchButton2.setOnClickListener {
 
             query = searchEditText.getText().toString()
+            Log.d(LOG_TAG, "Searching for Query")
             songSearchViewModel.songs =  mutableListOf<SongSearchResult>()
-            Thread(Runnable {
+
+            var threadIsFinished = false
+            val thread = Thread(Runnable {
                 result = JSONObject(URL("https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=25&key=AIzaSyCL8nn2bP2rlzgeEserQnQpp0IYepN6Yas").readText())
                 items = result.getJSONArray("items")
                 for (i in 0 until items.length()) {
@@ -85,8 +88,19 @@ class SongSearchFragment : Fragment() {
                     val secondParse = c.getJSONObject("snippet")
                     val title = secondParse.getString("title");
                     songSearchViewModel.songs.add(SongSearchResult(title))
+
+                    if(i%5 == 0){
+                        Log.d(LOG_TAG,"Added $i songs to list")
+                    }
                 }
-            }).start()
+                threadIsFinished = true
+            })
+            thread.start()
+
+            while(!threadIsFinished){
+                //wait
+            }
+            //update UI once the thread finishes
             updateUI()
 
         }
@@ -130,6 +144,8 @@ class SongSearchFragment : Fragment() {
 
 
     private fun updateUI() {
+        Log.d(LOG_TAG, "updateUI() called")
+
         val songs = songSearchViewModel.songs
         adapter = SongSearchAdapter(songs)
         searchRecyclerView.adapter = adapter
