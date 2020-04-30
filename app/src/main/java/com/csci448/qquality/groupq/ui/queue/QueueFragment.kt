@@ -1,14 +1,14 @@
 package com.csci448.qquality.groupq.ui.queue
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.extensions.LayoutContainer
-import org.w3c.dom.Text
+
 
 private const val LOG_TAG = "448.QueueFragment"
 
@@ -52,9 +52,13 @@ class QueueFragment: Fragment() {
 
         callbacks = context as Callbacks
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(LOG_TAG, "onCreate() called")
+
+        //set options menu
+        setHasOptionsMenu(true)
 
         // Get the database
         database = Firebase.firestore
@@ -107,6 +111,20 @@ class QueueFragment: Fragment() {
 //        }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        return inflater.inflate(R.menu.queue_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.menu_item_delete -> {
+                deleteLobbyAndPopBackstack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -143,6 +161,32 @@ class QueueFragment: Fragment() {
 //        val songs = queueViewModel.songs
 //        adapter = SongQueueAdapter(songs)
 //        queueRecyclerView.adapter = adapter
+    }
+
+    //function to delete a lobby and return to the lobbies screen. ust confirm first
+    private fun deleteLobbyAndPopBackstack() {
+        //show confirmation dialog
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.delete_lobby))
+            .setMessage(getString(R.string.delete_lobby_msg))
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.yes,
+                DialogInterface.OnClickListener { dialog, whichButton ->
+                    FirebaseFirestore.getInstance()
+                        .collection("lobbies")
+                        .document(lobbyUUIDString)
+                        .delete()
+                        .addOnSuccessListener {
+                            Log.d(LOG_TAG, "lobby deleted")
+                            requireActivity().supportFragmentManager.popBackStack()
+                        }
+                        .addOnFailureListener {
+                            Toast
+                                .makeText(requireContext(), "Could not delete this lobby", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                })
+            .setNegativeButton(android.R.string.no, null).show()
     }
 
 
