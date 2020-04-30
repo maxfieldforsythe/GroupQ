@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity(), Callbacks {
     }
 
 
-    override fun onGoToSongSearch() {
-        val fragment = SongSearchFragment()
+    override fun onGoToSongSearch(uuid: String, name: String) {
+        val fragment = SongSearchFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)

@@ -97,7 +97,7 @@ class QueueFragment: Fragment() {
         Log.d(LOG_TAG, "onViewCreated() called")
 
         searchButton.setOnClickListener {
-            callbacks?.onGoToSongSearch()
+            callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
         addSongButton.setOnClickListener{
             Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
