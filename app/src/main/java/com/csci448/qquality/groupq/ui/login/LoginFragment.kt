@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
         }
 
         registerButton.setOnClickListener {
-            Toast.makeText(context, "Register pressed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Register pressed", Toast.LENGTH_SHORT).show()
             callbacks?.onRegisterPressed()
         }
     }

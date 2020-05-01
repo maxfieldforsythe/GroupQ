@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onRegisterPressed() {
         // TODO implement change of fragment
-        Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
 
         val fragment = RegisterFragment()
         supportFragmentManager.beginTransaction()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
 
     override fun onRegisterSubmitPressed() {
-        Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
 
         val fragment = LobbiesFragment()
         supportFragmentManager.beginTransaction()

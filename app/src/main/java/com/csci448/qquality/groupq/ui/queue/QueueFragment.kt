@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+//import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.QueuedSong
 import com.csci448.qquality.groupq.data.SongSearchResult
@@ -21,9 +22,12 @@ import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.youtube.player.YouTubePlayer
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
@@ -48,6 +52,11 @@ class QueueFragment: Fragment() {
 
     private lateinit var database: FirebaseFirestore
 
+    private lateinit var databaseRef: DatabaseReference
+
+    private lateinit var youTubePlayerView: YouTubePlayerView
+    private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,6 +75,8 @@ class QueueFragment: Fragment() {
         // Get the database
         database = Firebase.firestore
         Log.d(LOG_TAG, "database retrieved: ${database.toString()}")
+
+        databaseRef = Firebase.database.reference
 
         // Get the ViewModel
         val factory = QueueViewModelFactory()
@@ -101,16 +112,26 @@ class QueueFragment: Fragment() {
         //addSongButton = view.findViewById(R.id.add_url_button)
 
         // add a youtube player to the fragment
-        val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtube_player)
-        lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
-                                                 // this allows the autoplay feature to work
+        youTubePlayerView = view.findViewById(R.id.youtube_player)
+        viewLifecycleOwner.lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
+                                                                    // this allows the autoplay feature to work
+        // TODO: getFirstSongInQueue()
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            @Override
             fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "S0Q4gqBUs7c"
+                val videoId = "SYnVYJDxu2Q" //TODO: this is hardcoded, needs to be set
                 youTubePlayer.loadVideo(videoId, 0)
             }
+            @Override
+            fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                if (state==PlayerConstants.PlayerState.ENDED) {
+                    //TODO: getFirstSongInQueue()
+
+                }
+            }
         })
+
 
         updateUI()
         return view
@@ -126,6 +147,15 @@ class QueueFragment: Fragment() {
 //        addSongButton.setOnClickListener{
 //            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
 //        }
+
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(LOG_TAG, "onStart() called")
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -234,6 +264,15 @@ class QueueFragment: Fragment() {
             val titleTextView = containerView.findViewById<TextView>(R.id.song_title)
         }
     }
+
+    /*private fun getCurrentSong() : QueuedSong {
+        val query = FirebaseFirestore.getInstance()
+            .collection("lobbies")
+            .document(lobbyUUIDString)
+            .collection("queue")
+            .orderBy("timeIn")
+            .limit(100)
+    }*/
 
 
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {

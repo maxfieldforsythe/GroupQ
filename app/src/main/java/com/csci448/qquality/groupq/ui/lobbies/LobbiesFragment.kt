@@ -153,7 +153,7 @@ class LobbiesFragment: Fragment() {
             holder.apply {
                 nameTextView.text = lobby.name
                 joinButton.setOnClickListener {
-                    Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Joined a lobby!", Toast.LENGTH_SHORT).show()
 
                     // join the lobby if button pressed
                     callbacks?.onJoinLobby(lobby.uuid, lobby.name)
