@@ -6,6 +6,6 @@ package com.csci448.qquality.groupq.data
 *  rename the class and use one song (data?) class in all uses of song, but
 *  for now it is called SongSearchResult because that si where it is being used
  */
-data class SongSearchResult(var title: String)
+data class SongSearchResult(var title: String, var urlEnding: String)
 // TODO add url field or other way to actually get the song data
 // TODO there may have to be separate types of songs for youtube and soundcloud sources. TDB

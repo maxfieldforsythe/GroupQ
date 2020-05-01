@@ -85,8 +85,10 @@ class SongSearchFragment : Fragment() {
                 for (i in 0 until items.length()) {
                     val c: JSONObject = items.getJSONObject(i)
                     val secondParse = c.getJSONObject("snippet")
-                    val title = secondParse.getString("title");
-                    songSearchViewModel.songs.add(SongSearchResult(title))
+                    val title = secondParse.getString("title")
+                    val thirdParse = c.getJSONObject("id")
+                    val url = thirdParse.getString("videoId")
+                    songSearchViewModel.songs.add(SongSearchResult(title, url))
 
                     if(i+1%5 == 0){
                         Log.d(LOG_TAG,"Added $i songs to list")
