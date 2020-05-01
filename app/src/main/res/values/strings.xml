@@ -19,5 +19,10 @@
     <string name="lobby_creation_label">Lobby Creation</string>
     <string name="lobby_name_label">Lobby Name</string>
     <string name="create_lobby_button">Create Lobby</string>
+<<<<<<< HEAD
     <string name="youtube_api_key">AIzaSyCL8nn2bP2rlzgeEserQnQpp0IYepN6Yas</string>
+=======
+    <string name="delete_lobby">Delete Lobby</string>
+    <string name="delete_lobby_msg">Are you sure you want to delete this lobby?</string>
+>>>>>>> c6946a0ec3af99873af30edc62e59bf25b4a550b
 </resources>
