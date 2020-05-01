@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,11 +19,14 @@ import com.csci448.qquality.groupq.data.SongSearchResult
 import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.android.youtube.player.YouTubePlayer
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
-import org.w3c.dom.Text
+
 
 private const val LOG_TAG = "448.QueueFragment"
 
@@ -52,6 +54,7 @@ class QueueFragment: Fragment() {
 
         callbacks = context as Callbacks
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(LOG_TAG, "onCreate() called")
@@ -70,8 +73,9 @@ class QueueFragment: Fragment() {
         lobbyName = arguments?.getString(LOBBY_NAME_ARG) ?: "ERROR"
         Log.d(LOG_TAG,"lobbyUUID is: $lobbyUUIDString")
 
-
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +95,17 @@ class QueueFragment: Fragment() {
         queueRecyclerView.layoutManager = LinearLayoutManager(context)
         searchButton = view.findViewById(R.id.search_button)
         //addSongButton = view.findViewById(R.id.add_url_button)
+
+        val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtube_player)
+        lifecycle.addObserver(youTubePlayerView)
+
+        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            fun onReady(youTubePlayer: YouTubePlayer) {
+                val videoId = "S0Q4gqBUs7c"
+                youTubePlayer.loadVideo(videoId, 0)
+            }
+        })
+
         updateUI()
         return view
     }
@@ -115,9 +130,6 @@ class QueueFragment: Fragment() {
             setTitle(R.string.app_name)
         }
     }
-
-
-
 
     private fun updateUI() {
 
@@ -144,7 +156,6 @@ class QueueFragment: Fragment() {
 //        adapter = SongQueueAdapter(songs)
 //        queueRecyclerView.adapter = adapter
     }
-
 
     // Firestore adapter to display Q from DB
     private inner class FireStoreQueueAdapter(options: FirestoreRecyclerOptions<QueuedSong>)
@@ -182,7 +193,7 @@ class QueueFragment: Fragment() {
         // TODO make the addButton function
 
         val titleTextView: TextView = itemView.findViewById(R.id.song_title)
-        val artistTextView: TextView = itemView.findViewById(R.id.song_artist)
+        //val artistTextView: TextView = itemView.findViewById(R.id.song_artist)
         val addButton: Button = itemView.findViewById(R.id.add_button)
 
         fun bind(song: SongSearchResult) {
@@ -225,7 +236,7 @@ class QueueFragment: Fragment() {
             }
 
         }
+
+        val VIDEO_ID: String = ""
     }
-
-
 }

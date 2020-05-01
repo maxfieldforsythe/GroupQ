@@ -156,7 +156,7 @@ class SongSearchFragment : Fragment() {
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         val titleTextView: TextView = itemView.findViewById(R.id.song_title)
-        val artistTextView: TextView = itemView.findViewById(R.id.song_artist)
+        //val artistTextView: TextView = itemView.findViewById(R.id.song_artist)
         val addButton: Button = itemView.findViewById(R.id.add_button)
 
         fun bind(song: SongSearchResult) {

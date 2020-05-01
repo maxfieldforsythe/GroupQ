@@ -19,4 +19,5 @@
     <string name="lobby_creation_label">Lobby Creation</string>
     <string name="lobby_name_label">Lobby Name</string>
     <string name="create_lobby_button">Create Lobby</string>
+    <string name="youtube_api_key">AIzaSyCL8nn2bP2rlzgeEserQnQpp0IYepN6Yas</string>
 </resources>
