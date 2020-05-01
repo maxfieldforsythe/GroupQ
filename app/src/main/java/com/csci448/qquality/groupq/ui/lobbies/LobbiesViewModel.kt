@@ -18,13 +18,6 @@ class LobbiesViewModel : ViewModel() {
 
     val lobbies = mutableListOf<LobbyData>()
 
-    init{
-        for (i in 0 until 5){
-            lobbies.add(LobbyData("lobby $i"))
-        }
-    }
-
-
     fun getLobbiesList(): List<LobbyData> {
 
         // clear out any old data
@@ -37,7 +30,8 @@ class LobbiesViewModel : ViewModel() {
                 for (document in result) {
                     Log.d(TAG, "${document.id} => ${document.data}")
 
-                    lobbies.add(LobbyData(document.data.get("name").toString()))
+                    lobbies.add(LobbyData(document.data.get("name").toString(),
+                    document.data.get("uuid").toString()))
                 }
             }
             .addOnFailureListener { exception ->

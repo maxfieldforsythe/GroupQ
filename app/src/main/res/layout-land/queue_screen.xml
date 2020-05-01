@@ -65,6 +65,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/add_url_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

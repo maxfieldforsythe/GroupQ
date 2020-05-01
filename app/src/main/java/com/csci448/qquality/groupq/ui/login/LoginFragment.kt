@@ -56,13 +56,13 @@ class LoginFragment : Fragment() {
 
         loginButton.setOnClickListener {
             // TODO handle any necessary user auth stuff
-            Toast.makeText(context, "Not handling user auth yet", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "Not handling user auth yet", Toast.LENGTH_SHORT).show()
 
             callbacks?.onLoginPressed()
         }
 
         registerButton.setOnClickListener {
-            Toast.makeText(context, "Register pressed", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Register pressed", Toast.LENGTH_SHORT).show()
             callbacks?.onRegisterPressed()
         }
     }

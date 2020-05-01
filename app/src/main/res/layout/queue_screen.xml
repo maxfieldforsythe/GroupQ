@@ -22,13 +22,13 @@
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="65dp"
             android:text="@string/search_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/url_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
@@ -41,6 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:visibility="gone"
             android:id="@+id/add_url_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,56 +63,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ProgressBar
-            android:id="@+id/track_progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="#3AA2B1"
-            app:layout_constraintEnd_toEndOf="parent"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:showYouTubeButton="false"
+            app:showFullScreenButton="false"/>
 
         <ImageButton
             android:id="@+id/play_button"
             android:layout_width="77dp"
-            android:layout_height="77dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="1dp"
+            android:layout_height="0dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/next_button"
-            app:layout_constraintStart_toEndOf="@+id/prev_button"
-            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
+            app:layout_constraintStart_toEndOf="@+id/youtube_player"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_play_button" />
 
         <ImageButton
-            android:id="@+id/prev_button"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="3dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/play_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
-            app:srcCompat="@drawable/ic_back" />
-
-        <ImageButton
             android:id="@+id/next_button"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="9dp"
+            android:layout_width="77dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
             android:backgroundTint="#00FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/play_button"
-            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onRegisterPressed() {
         // TODO implement change of fragment
-        Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
 
         val fragment = RegisterFragment()
         supportFragmentManager.beginTransaction()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
 
 
     override fun onRegisterSubmitPressed() {
-        Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
 
         val fragment = LobbiesFragment()
         supportFragmentManager.beginTransaction()
@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity(), Callbacks {
     }
 
 
-    override fun onGoToSongSearch() {
-        val fragment = SongSearchFragment()
+    override fun onGoToSongSearch(uuid: String, name: String) {
+        val fragment = SongSearchFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
@@ -77,17 +77,19 @@ class MainActivity : AppCompatActivity(), Callbacks {
     /**
      * This function handles moving from the create a lobby screen to the queue screen
      */
-    override fun onLobbyCreated() {
-        val fragment = QueueFragment()
+    override fun onLobbyCreated(uuid: String, name: String) {
+        //  get lobby spcific fragment
+        val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
+            .addToBackStack(null) //TODO dont add to backstack. going back should take you to lobbies list
             .commit()
     }
 
 
-    override fun onJoinLobby() {
-        val fragment = QueueFragment()
+    override fun onJoinLobby(uuid: String, name: String) {
+        // get lobby specific queue
+        val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)

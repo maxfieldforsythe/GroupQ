@@ -15,11 +15,30 @@ class CreateLobbyViewModel : ViewModel() {
 
     // public function to add lobby to the database
     // TODO as of right now, lobby creation is just done with the name string
-    fun createLobby(name: String): Boolean {
+    fun createLobby(name: String, uuid: String): Boolean {
         Log.d(LOG_TAG, "createLobby called()")
-        Log.d(LOG_TAG, "db is ${database.toString()}")
 
-        // TODO check if lobby already exists and return false if so
+
+        //  TODO don't allow lobby overwrites
+//        // check if lobby already exists and return false if so
+//        var docExists = false
+//        var docRef = database.collection("lobbies").document(name);
+//        docRef.get().addOnSuccessListener { _ ->
+//            docExists = true
+//        }
+//
+//        database.collection("lobbies").document(name).get()
+//            .addOnSuccessListener { task ->
+//                if (task.exists()) {
+//                    docExists = true
+//                }
+//            }
+//            .addOnCompleteListener { task ->
+//                if (task.isSuccessful || task.isComplete) {
+//                    docExists = true
+//                }
+//            }
+
         if (false) {
             return false
         } else {
@@ -28,17 +47,17 @@ class CreateLobbyViewModel : ViewModel() {
             val lobby = hashMapOf(
                 "host_name" to "",
                 "name" to name,
-                "uuid" to ""
+                "uuid" to uuid
             )
 
-            Log.d(LOG_TAG, "lobby map created")
+            Log.d(LOG_TAG, "lobby map created. ${lobby["name"]}, ${lobby["uuid"]}")
 
             // push to database
             // TODO should collection path be hardcoded?
-            database.collection("lobbies")
-                .add(lobby)
+            database.collection("lobbies").document(lobby["uuid"] ?: "Error Lobby")
+                .set(lobby)
                 .addOnSuccessListener { docRef ->
-                    Log.d(LOG_TAG, "Added document: $docRef")
+                    Log.d(LOG_TAG, "Updated document: $docRef")
                 }
                 .addOnFailureListener { e ->
                     Log.w(LOG_TAG, "Error adding document", e)
