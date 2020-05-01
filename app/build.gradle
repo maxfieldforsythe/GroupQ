@@ -63,4 +63,5 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }
