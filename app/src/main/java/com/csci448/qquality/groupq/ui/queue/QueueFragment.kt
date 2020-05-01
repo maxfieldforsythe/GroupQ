@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,17 +47,15 @@ class QueueFragment: Fragment() {
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
     //private lateinit var addSongButton: Button
+    private lateinit var playButton: AppCompatImageButton
+    private lateinit var nextButton: AppCompatImageButton
 
     private lateinit var lobbyUUIDString: String
     private lateinit var lobbyName: String
 
     private lateinit var database: FirebaseFirestore
 
-    private lateinit var databaseRef: DatabaseReference
-
     private lateinit var youTubePlayerView: YouTubePlayerView
-    private lateinit var youTubePlayer: com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -75,8 +74,6 @@ class QueueFragment: Fragment() {
         // Get the database
         database = Firebase.firestore
         Log.d(LOG_TAG, "database retrieved: ${database.toString()}")
-
-        databaseRef = Firebase.database.reference
 
         // Get the ViewModel
         val factory = QueueViewModelFactory()
@@ -110,6 +107,8 @@ class QueueFragment: Fragment() {
         queueRecyclerView.layoutManager = LinearLayoutManager(context)
         searchButton = view.findViewById(R.id.search_button)
         //addSongButton = view.findViewById(R.id.add_url_button)
+        playButton = view.findViewById(R.id.play_button)
+        nextButton = view.findViewById(R.id.next_button)
 
         // add a youtube player to the fragment
         youTubePlayerView = view.findViewById(R.id.youtube_player)
@@ -120,18 +119,32 @@ class QueueFragment: Fragment() {
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             @Override
             fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "SYnVYJDxu2Q" //TODO: this is hardcoded, needs to be set
+                var videoId = ""
+                // TODO: if (the queue is not empty) {
+                videoId = "" // TODO: needs to be set
                 youTubePlayer.loadVideo(videoId, 0)
+
+                // TODO: else {
+                videoId = "SYnVYJDxu2Q"
+                youTubePlayer.cueVideo(videoId)
             }
             @Override
             fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
                 if (state==PlayerConstants.PlayerState.ENDED) {
-                    //TODO: getFirstSongInQueue()
+                    // TODO: moveToNextSong() -> remove current song from queue, getFirstSongInQueue()
+                    //  call loadVideo
 
                 }
             }
         })
 
+        playButton.setOnClickListener {
+
+        }
+
+        nextButton.setOnClickListener {
+            // TODO: moveToNextSong()
+        }
 
         updateUI()
         return view
