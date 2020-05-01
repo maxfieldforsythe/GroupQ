@@ -7,11 +7,8 @@ import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
-<<<<<<< HEAD
-=======
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
->>>>>>> c6946a0ec3af99873af30edc62e59bf25b4a550b
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -103,8 +100,10 @@ class QueueFragment: Fragment() {
         searchButton = view.findViewById(R.id.search_button)
         //addSongButton = view.findViewById(R.id.add_url_button)
 
+        // add a youtube player to the fragment
         val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtube_player)
-        lifecycle.addObserver(youTubePlayerView)
+        lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
+                                                 // this allows the autoplay feature to work
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             fun onReady(youTubePlayer: YouTubePlayer) {
@@ -178,8 +177,6 @@ class QueueFragment: Fragment() {
 //        queueRecyclerView.adapter = adapter
     }
 
-<<<<<<< HEAD
-=======
     //function to delete a lobby and return to the lobbies screen. ust confirm first
     private fun deleteLobbyAndPopBackstack() {
         //show confirmation dialog
@@ -207,7 +204,6 @@ class QueueFragment: Fragment() {
     }
 
 
->>>>>>> c6946a0ec3af99873af30edc62e59bf25b4a550b
     // Firestore adapter to display Q from DB
     private inner class FireStoreQueueAdapter(options: FirestoreRecyclerOptions<QueuedSong>)
         : FirestoreRecyclerAdapter<QueuedSong, FireStoreQueueAdapter.ViewHolder>(options) {
