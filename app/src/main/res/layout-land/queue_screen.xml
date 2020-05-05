@@ -1,68 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="149dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#BBC1E4">
+        android:background="@color/dark_blue_background">
 
-        <ProgressBar
-            android:id="@+id/track_progress_bar3"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="95dp"
-            android:layout_height="13dp"
-            android:layout_marginTop="30dp"
-            android:background="#3AA2B1"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/imageButton6"
-            android:layout_width="57dp"
-            android:layout_height="57dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/search_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_back" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:showFullScreenButton="false"
+            app:showYouTubeButton="false" />
 
         <ImageButton
-            android:id="@+id/imageButton7"
-            android:layout_width="57dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="18dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/track_progress_bar3"
-            app:srcCompat="@drawable/ic_next" />
-
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="57dp"
-            android:layout_height="57dp"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/imageButton6"
+            android:id="@+id/play_button"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/tint_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton7"
+            app:layout_constraintTop_toBottomOf="@+id/youtube_player"
             app:srcCompat="@drawable/ic_play_button" />
+
+        <ImageButton
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="77dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/tint_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/play_button"
+            app:srcCompat="@drawable/ic_next" />
 
         <Button
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/search_button"
             app:layout_constraintBottom_toTopOf="@+id/add_url_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/next_button" />
 
         <Button
             android:visibility="gone"

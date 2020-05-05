@@ -2,6 +2,7 @@ package com.csci448.qquality.groupq
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.csci448.qquality.groupq.ui.Callbacks
 import com.csci448.qquality.groupq.ui.createlobby.CreateLobbyFragment
@@ -11,15 +12,20 @@ import com.csci448.qquality.groupq.ui.queue.QueueFragment
 import com.csci448.qquality.groupq.ui.registration.RegisterFragment
 import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
 
+private const val LOG_TAG = "448.MainActivity"
+
 class MainActivity : AppCompatActivity(), Callbacks {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(LOG_TAG, "onCreate() called")
+
         setContentView(R.layout.activity_main)
 
         // Launch into the login fragment
         val currentFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container)
+
         if (currentFragment == null) {
             val fragment = LoginFragment()
             supportFragmentManager
@@ -29,12 +35,12 @@ class MainActivity : AppCompatActivity(), Callbacks {
         }
     }
 
+    /**
+     * Moving from LoginFragment to LobbiesFragment
+     */
     override fun onLoginPressed() {
         // TODO implement user auth handling. Should that be done in separate activity?
-        //Toast.makeText(this, "Wrong Fragment launched for testing", Toast.LENGTH_SHORT).show()
-
-        // Don't add to back stack after login
-        // TODO launch the correct fragment
+        Log.d(LOG_TAG, "onLoginPressed() called")
 
         val fragment = LobbiesFragment()
 
@@ -44,30 +50,40 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .commit()
     }
 
+    /**
+     * Moving from LoginFragment to RegisterFragment
+     */
     override fun onRegisterPressed() {
-        // TODO implement change of fragment
-        //Toast.makeText(this, "onRegisterPressed() called", Toast.LENGTH_SHORT).show()
+        Log.d(LOG_TAG, "onRegisterPressed() called")
 
         val fragment = RegisterFragment()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
     }
 
-
+    /**
+     * Moving from RegisterFragment to LobbiesFragment
+     * DO NOT add to back stack
+     */
     override fun onRegisterSubmitPressed() {
-        //Toast.makeText(this, "onRegisterSubmitPressed() called", Toast.LENGTH_SHORT).show()
+        Log.d(LOG_TAG, "onRegisterSubmitPressed() called")
 
         val fragment = LobbiesFragment()
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null)
             .commit()
     }
 
-
+    /**
+     * Moving from QueueFragment to SongSearchFragment
+     */
     override fun onGoToSongSearch(uuid: String, name: String) {
+        Log.d(LOG_TAG, "onGoToSongSearch() called")
+
         val fragment = SongSearchFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
@@ -75,19 +91,25 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .commit()    }
 
     /**
-     * This function handles moving from the create a lobby screen to the queue screen
+     * Moving from CreateLobbyFragment to LobbiesFragment
+     * DO NOT add to back stack
      */
     override fun onLobbyCreated(uuid: String, name: String) {
+        Log.d(LOG_TAG, "onLobbyCreated() called")
+
         //  get lobby spcific fragment
         val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(null) //TODO dont add to backstack. going back should take you to lobbies list
             .commit()
     }
 
-
+    /**
+     * Moving from LobbyFragment to QueueFragment
+     */
     override fun onJoinLobby(uuid: String, name: String) {
+        Log.d(LOG_TAG, "onJoinLobby() called")
+
         // get lobby specific queue
         val fragment = QueueFragment.newInstance(uuid, name)
         supportFragmentManager.beginTransaction()
@@ -97,7 +119,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
     }
 
     /**
-     * This function handles moving from the lobby list screen to the create a lobby screen
+     * Moving from LobbyFragment to CreateLobbyFragment
      */
     override fun onCreateNewLobby() {
         val fragment = CreateLobbyFragment()

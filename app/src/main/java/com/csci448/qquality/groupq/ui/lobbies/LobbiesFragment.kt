@@ -62,7 +62,7 @@ class LobbiesFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         hostNewLobbyButton.setOnClickListener {
-            Toast.makeText(context, "Creating a lobby!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Creating a lobby!", Toast.LENGTH_SHORT).show()
             callbacks?.onCreateNewLobby()
         }
     }

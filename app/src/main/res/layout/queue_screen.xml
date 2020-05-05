@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00C70F0F"
+    android:background="@color/white_background"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#BBC1E4"
+        android:background="@color/dark_blue_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +35,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="9dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:text="@string/url_textview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:background="#ADB2DD"
+        android:background="@color/dark_blue_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -68,17 +68,19 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showYouTubeButton="false"
-            app:showFullScreenButton="false"/>
+            app:showFullScreenButton="false"
+            app:showYouTubeButton="false" />
 
         <ImageButton
             android:id="@+id/play_button"
             android:layout_width="77dp"
             android:layout_height="0dp"
-            android:backgroundTint="#00FFFFFF"
+            android:backgroundTint="@color/tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/next_button"
             app:layout_constraintStart_toEndOf="@+id/youtube_player"
@@ -90,7 +92,7 @@
             android:layout_width="77dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="#00FFFFFF"
+            android:backgroundTint="@color/tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/play_button"
