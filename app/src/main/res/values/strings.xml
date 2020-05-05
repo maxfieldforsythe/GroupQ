@@ -4,9 +4,13 @@
     <string name="url_textview">URL</string>
     <string name="url_button">Add Song</string>
     <string name="login">Log In</string>
+    <string name="prompt">Please fill out the following form to register for GroupQ!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="email">Email</string>
     <string name="reenter_password">Re-enter Password</string>
+    <string name="password_protect_lobby">Password Protect Lobby?</string>
+    <string name="tos">I agree to the GroupQ Terms of Service</string>
     <string name="register">Register</string>
     <string name="or">-- OR --</string>
     <string name="search">SEARCH</string>

@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.csci448.qquality.groupq.R
@@ -22,6 +20,9 @@ class CreateLobbyFragment: Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var reenterPasswordEditText: EditText
     private lateinit var createLobbyButton: Button
+    private lateinit var passwordLayout: LinearLayout
+    private lateinit var reenterPasswordLayout: LinearLayout
+    private lateinit var passwordSwitch: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +44,25 @@ class CreateLobbyFragment: Fragment() {
         passwordEditText = view.findViewById(R.id.lobby_password_edit_text)
         reenterPasswordEditText = view.findViewById(R.id.lobby_reenter_password_edit_text)
         createLobbyButton = view.findViewById(R.id.create_lobby_button)
+
+        passwordLayout = view.findViewById(R.id.password_layout)
+        reenterPasswordLayout = view.findViewById(R.id.reenter_password_layout)
+        passwordSwitch = view.findViewById(R.id.password_switch)
+
+        var passwordStuffVisible: Boolean = false
+
+        passwordSwitch.setOnClickListener {
+            if (!passwordStuffVisible) {
+                passwordLayout.visibility = View.VISIBLE
+                reenterPasswordLayout.visibility = View.VISIBLE
+                passwordStuffVisible = true
+            } else {
+                passwordLayout.visibility = View.INVISIBLE
+                reenterPasswordLayout.visibility = View.INVISIBLE
+                passwordStuffVisible = false
+            }
+        }
+
 
         return view
     }

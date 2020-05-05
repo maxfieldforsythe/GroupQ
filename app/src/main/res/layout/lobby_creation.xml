@@ -4,13 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3F7F7">
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E3F7F7"
-        android:orientation="horizontal">
+        android:background="@color/background"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/lobby_creation_prompt"
@@ -18,16 +19,17 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="32dp"
-            android:layout_marginTop="16dp"
             android:text="@string/lobby_creation_label"
-            android:textColor="#000000" />
+            android:textColor="@color/black_text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E3F7F7"
-        android:orientation="vertical">
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,9 +41,8 @@
                 android:id="@+id/lobby_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:text="@string/lobby_name_label"
-                android:textColor="#000000" />
+                android:textColor="@color/black_text" />
 
             <EditText
                 android:id="@+id/lobby_name_edit_text"
@@ -52,20 +53,43 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="@color/background"
             android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/password_protect_lobby_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password_protect_lobby"
+                android:textColor="@color/black_text" />
+
+            <Switch
+                android:id="@+id/password_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/password_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/lobby_password_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:text="@string/password"
-                android:textColor="#000000" />
+                android:textColor="@color/black_text" />
 
             <EditText
                 android:id="@+id/lobby_password_edit_text"
@@ -73,23 +97,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:inputType="textPassword" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/reenter_password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/lobby_reenter_password_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:text="@string/reenter_password"
-                android:textColor="#000000" />
+                android:textColor="@color/black_text" />
 
             <EditText
                 android:id="@+id/lobby_reenter_password_edit_text"
@@ -97,16 +123,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:inputType="textPassword"/>
         </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp">
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/create_lobby_button"
