@@ -47,22 +47,11 @@ class RegisterFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        tosSwitch.setOnClickListener {
+            registerSubmitButton.isEnabled = tosSwitch.isChecked
+        }
 
         registerSubmitButton.setOnClickListener {
-
-            if (tosSwitch.isChecked) {
-                Toast.makeText(
-                    context,
-                    "Congradulations! You are now registered and ready to use GroupQ!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    context,
-                    "You must accept the TOS to register",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
             callbacks?.onRegisterSubmitPressed()
         }
     }

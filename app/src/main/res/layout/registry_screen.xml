@@ -142,10 +142,11 @@
                 android:textColor="@color/black_text" />
 
              <Switch
-                android:id="@+id/tos_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_margin="16dp"/>
+                 android:id="@+id/tos_switch"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="16dp"
+                 android:checked="false"/>
 
         </LinearLayout>
 
@@ -159,7 +160,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/register" />
+                android:text="@string/register"
+                android:enabled="false"/>
         </LinearLayout>
 
     </LinearLayout>
