@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
@@ -44,6 +45,8 @@ class SongSearchFragment : Fragment() {
 
     private lateinit var searchRecyclerView: RecyclerView
     private lateinit var adapter: SongSearchAdapter
+    private lateinit var dividerItemDecoration: DividerItemDecoration
+    private lateinit var layoutManager: LinearLayoutManager
 
     private lateinit var searchButton2: Button
     private lateinit var searchEditText: EditText
@@ -124,7 +127,11 @@ class SongSearchFragment : Fragment() {
         sourceSpinner.adapter = spinnerAdapter
 
         searchRecyclerView = view.findViewById(R.id.song_search_recycler)
-        searchRecyclerView.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+        searchRecyclerView.layoutManager = layoutManager
+
+        dividerItemDecoration = DividerItemDecoration(searchRecyclerView.context, layoutManager.orientation)
+        searchRecyclerView.addItemDecoration(dividerItemDecoration)
 
         // Get the action bar and set the title
         (activity as AppCompatActivity).supportActionBar?.apply {

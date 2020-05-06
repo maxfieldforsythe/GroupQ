@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 //import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -44,6 +45,9 @@ class QueueFragment: Fragment() {
     private var callbacks: Callbacks? = null
     private lateinit var queueViewModel: QueueViewModel
     private lateinit var queueRecyclerView: RecyclerView
+    private lateinit var dividerItemDecoration: DividerItemDecoration
+    private lateinit var layoutManager: LinearLayoutManager
+
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
     //private lateinit var addSongButton: Button
@@ -104,7 +108,12 @@ class QueueFragment: Fragment() {
         }
 
         queueRecyclerView = view.findViewById(R.id.queue_recycler)
-        queueRecyclerView.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+        queueRecyclerView.layoutManager = layoutManager
+
+        dividerItemDecoration = DividerItemDecoration(queueRecyclerView.context, layoutManager.orientation)
+        queueRecyclerView.addItemDecoration(dividerItemDecoration)
+
         searchButton = view.findViewById(R.id.search_button)
         //addSongButton = view.findViewById(R.id.add_url_button)
         playButton = view.findViewById(R.id.play_button)

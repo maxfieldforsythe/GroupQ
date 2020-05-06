@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csci448.qquality.groupq.R
@@ -32,6 +33,9 @@ class LobbiesFragment: Fragment() {
     // private lateinit var joinButton: Button
     private lateinit var hostNewLobbyButton: Button
 
+    private lateinit var dividerItemDecoration: DividerItemDecoration
+    private lateinit var layoutManager: LinearLayoutManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +56,11 @@ class LobbiesFragment: Fragment() {
 
         lobbiesRecyclerView = view.findViewById(R.id.lobby_recycler)
         hostNewLobbyButton = view.findViewById(R.id.host_new_lobby_button)
-        lobbiesRecyclerView.layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(context)
+        lobbiesRecyclerView.layoutManager = layoutManager
+
+        dividerItemDecoration = DividerItemDecoration(lobbiesRecyclerView.context, layoutManager.orientation)
+        lobbiesRecyclerView.addItemDecoration(dividerItemDecoration)
 
         updateUI()
         return view
