@@ -1,12 +1,14 @@
 package com.csci448.qquality.groupq.ui.songsearch
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -87,7 +89,8 @@ class SongSearchFragment : Fragment() {
                 for (i in 0 until items.length()) {
                     val c: JSONObject = items.getJSONObject(i)
                     val secondParse = c.getJSONObject("snippet")
-                    val title = secondParse.getString("title")
+                    var title = secondParse.getString("title")
+                    title = HtmlCompat.fromHtml(title, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
                     val thirdParse = c.getJSONObject("id")
                     val url = thirdParse.getString("videoId")
                     songSearchViewModel.songs.add(SongSearchResult(title, url))
