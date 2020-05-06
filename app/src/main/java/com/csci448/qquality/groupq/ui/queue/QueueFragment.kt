@@ -214,6 +214,7 @@ class QueueFragment: Fragment() {
     }
 
     // function to move to next song
+    // this is done automatically by the snapshot listener. we just have to delete the song
     private fun moveToNextSong() {
         //temporarily disable next button
         nextButton.isEnabled = false
@@ -229,25 +230,12 @@ class QueueFragment: Fragment() {
                 if (docs.isEmpty()){
                     //do nothing
                 } else if (numSongs < 2){
-                    //auto rick roll
-                    youTubePlayerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback{
-                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
-                        }
-                    })
                     // pop the current song
                     val currentSong = docs.get(0).toObject(QueuedSong::class.java)
                     popSong(currentSong?.uuid ?: "")
 
                 }
                 else {
-                    // play next song
-                    val nextSong = docs.get(1).toObject(QueuedSong::class.java)
-                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback{
-                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadVideo(nextSong?.url ?: "dQw4w9WgXcQ", 0f)
-                        }
-                    })
                     // pop the current song
                     val currentSong = docs.get(0).toObject(QueuedSong::class.java)
                     popSong(currentSong?.uuid ?: "")
