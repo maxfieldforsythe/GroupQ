@@ -27,8 +27,11 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
 
@@ -131,17 +134,17 @@ class QueueFragment: Fragment() {
             callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
 
-        // TODO: getFirstSongInQueue()
-        //      This function should search the database and either return the first song in the queue,
-        //      or place the current song in a "currentVideo" variable defined in the fragment.
-        //      All the player needs is the videoId. If the queue is empty the videoId string should
-        //      also be empty. This function will be called from MainActivity.
+        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                if (state== PlayerConstants.PlayerState.ENDED) {
+                    // moveToNextSong()
+                    // call loadVideo
+                    moveToNextSong()
 
-        // TODO: moveToNextSong()
-        //      This function should (on an event triggered in MainActvity) delete the first song
-        //      from the queue and return the next song, or at least the videoId.
-        //      Maybe call getFirstSongInQueue() to get the new song?
-        //      This function will be called from MainActivity.
+                }
+            }
+
+        })
 
         val videoId = "S0Q4gqBUs7c"
         //callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
@@ -155,7 +158,7 @@ class QueueFragment: Fragment() {
             .limit(3).get().addOnSuccessListener { snapShot->
                 val docs = snapShot.documents
                 if (docs.isEmpty()) {
-                    //do nothing
+                    //auto rick roll
                     youTubePlayerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback{
                         override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
                             youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
@@ -165,10 +168,22 @@ class QueueFragment: Fragment() {
                     // disable the next button if no songs to skip but play song
                     nextButton.isEnabled = false
                     val firstSong = docs.get(0).toObject(QueuedSong::class.java)
-                    callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
+                    //TODO new
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
+                        }
+                    })
+                    //callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
                 } else {
                     val firstSong = docs.get(0).toObject(QueuedSong::class.java)
-                    callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
+                    // TODO new
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
+                        }
+                    })
+                    //callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
                 }
             }
 
@@ -179,8 +194,6 @@ class QueueFragment: Fragment() {
 
         nextButton.setOnClickListener {
             Log.d(LOG_TAG, "next button pressed")
-            //temporarily disable next button
-            nextButton.isEnabled = false
 
             moveToNextSong()
         }
@@ -189,6 +202,9 @@ class QueueFragment: Fragment() {
 
     // function to move to next song
     private fun moveToNextSong() {
+        //temporarily disable next button
+        nextButton.isEnabled = false
+
         val queueRef = FirebaseFirestore.getInstance()
             .collection("lobbies")
             .document(lobbyUUIDString)
@@ -197,7 +213,20 @@ class QueueFragment: Fragment() {
             .limit(3).get().addOnSuccessListener { snapShot ->
                 val docs = snapShot.documents
                 val numSongs = docs.size
-                if (numSongs < 2){ /* do nothing*/ }
+                if (docs.isEmpty()){
+                    //do nothing
+                } else if (numSongs < 2){
+                    //auto rick roll
+                    youTubePlayerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback{
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
+                        }
+                    })
+                    // pop the current song
+                    val currentSong = docs.get(0).toObject(QueuedSong::class.java)
+                    popSong(currentSong?.uuid ?: "")
+
+                }
                 else {
                     // play next song
                     val nextSong = docs.get(1).toObject(QueuedSong::class.java)

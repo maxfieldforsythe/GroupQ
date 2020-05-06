@@ -154,6 +154,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
                 if (state== PlayerConstants.PlayerState.ENDED) {
                     // moveToNextSong()
                     // call loadVideo
+
                 }
             }
 
