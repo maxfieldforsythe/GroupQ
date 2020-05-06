@@ -78,9 +78,9 @@
             app:layout_constraintTop_toTopOf="parent"
 
             app:showFullScreenButton="false"
-            app:showYouTubeButton="false"/>
+            app:showYouTubeButton="false" />
 
-        <ImageButton
+      <!--  <ImageButton
             android:id="@+id/play_button"
             android:layout_width="77dp"
             android:layout_height="0dp"
@@ -89,17 +89,17 @@
             app:layout_constraintEnd_toStartOf="@+id/next_button"
             app:layout_constraintStart_toEndOf="@+id/youtube_player"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_play_button" />
+            app:srcCompat="@drawable/ic_play_button" />-->
 
         <ImageButton
             android:id="@+id/next_button"
-            android:layout_width="77dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/tint_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/play_button"
+            app:layout_constraintStart_toEndOf="@+id/youtube_player"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_next" />

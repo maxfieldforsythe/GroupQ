@@ -25,9 +25,9 @@ class LoginFragment : Fragment() {
 
     private var callbacks: Callbacks? = null
     private lateinit var loginButton: Button
-    private lateinit var registerButton: Button
+   /* private lateinit var registerButton: Button
     private lateinit var usernameEditText: EditText
-    private lateinit var passwordEditText: EditText
+    private lateinit var passwordEditText: EditText*/
 
 
     // Override onAttach to set callbacks to context
@@ -44,9 +44,9 @@ class LoginFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         loginButton = view.findViewById(R.id.login_button)
-        registerButton = view.findViewById(R.id.register_button)
+       /* registerButton = view.findViewById(R.id.register_button)
         usernameEditText = view.findViewById(R.id.username_edit_text)
-        passwordEditText = view.findViewById(R.id.password_edit_text)
+        passwordEditText = view.findViewById(R.id.password_edit_text)*/
 
         return view
     }
@@ -61,10 +61,10 @@ class LoginFragment : Fragment() {
             callbacks?.onLoginPressed()
         }
 
-        registerButton.setOnClickListener {
+        /*registerButton.setOnClickListener {
             //Toast.makeText(context, "Register pressed", Toast.LENGTH_SHORT).show()
             callbacks?.onRegisterPressed()
-        }
+        }*/
     }
 
     // Set callbacks to null when detaching

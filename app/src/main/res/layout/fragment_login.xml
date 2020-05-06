@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
 
-
+<!--
     <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="wrap_content"
@@ -30,9 +30,9 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
-    <EditText
+   <!-- <EditText
         android:id="@+id/username_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,9 +42,28 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
+ <ImageView
+     android:id="@+id/imageView"
+     android:layout_width="wrap_content"
+     android:layout_height="365dp"
+     android:layout_marginStart="8dp"
+     android:layout_marginEnd="8dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:srcCompat="@drawable/groupq_logo_2" />
 
-    <Button
+ <Button
+     android:id="@+id/login_button"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:text="@string/start"
+     android:textSize="48dp"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    <!--<Button
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,9 +71,9 @@
         android:text="@string/login"
         app:layout_constraintBottom_toTopOf="@+id/or_textview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
+  <!--  <Button
         android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,9 +91,9 @@
         android:text="@string/or"
         app:layout_constraintBottom_toTopOf="@+id/register_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />-->
 
- <ImageView
+ <!--<ImageView
      android:id="@+id/imageView"
      android:layout_width="wrap_content"
      android:layout_height="365dp"
@@ -84,6 +103,6 @@
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintStart_toStartOf="parent"
      app:layout_constraintTop_toTopOf="parent"
-     app:srcCompat="@drawable/groupq_logo_2" />
+     app:srcCompat="@drawable/groupq_logo_2" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

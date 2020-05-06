@@ -29,7 +29,7 @@
         app:layout_constraintWidth_default="percent"
         app:layout_constraintWidth_percent=".5">
 
-        <EditText
+       <!-- <EditText
             android:id="@+id/username_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/buttons_layout"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"/>-->
 
         <LinearLayout
             android:id="@+id/buttons_layout"
@@ -67,9 +67,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/login" />
+                android:textSize="48dp"
+                android:text="@string/start" />
 
-            <TextView
+          <!--  <TextView
                 android:id="@+id/or_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:text="@string/register" />
+                android:text="@string/register" />-->
 
 
         </LinearLayout>

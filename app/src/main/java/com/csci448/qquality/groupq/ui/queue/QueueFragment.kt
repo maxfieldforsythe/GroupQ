@@ -24,12 +24,13 @@ import com.csci448.qquality.groupq.data.SongSearchResult
 import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.android.youtube.player.YouTubePlayer
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
@@ -50,8 +51,7 @@ class QueueFragment: Fragment() {
 
     private lateinit var adapter: SongQueueAdapter
     private lateinit var searchButton: Button
-    //private lateinit var addSongButton: Button
-    private lateinit var playButton: AppCompatImageButton
+    //private lateinit var playButton: AppCompatImageButton
     private lateinit var nextButton: AppCompatImageButton
 
     private lateinit var lobbyUUIDString: String
@@ -116,13 +116,11 @@ class QueueFragment: Fragment() {
 
         searchButton = view.findViewById(R.id.search_button)
         //addSongButton = view.findViewById(R.id.add_url_button)
-        playButton = view.findViewById(R.id.play_button)
+        //playButton = view.findViewById(R.id.play_button)
         nextButton = view.findViewById(R.id.next_button)
 
         // add a youtube player to the fragment
         youTubePlayerView = view.findViewById(R.id.youtube_player)
-        //viewLifecycleOwner.lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
-                                                                    // this allows the autoplay feature to work
 
         updateUI()
         return view
@@ -151,9 +149,10 @@ class QueueFragment: Fragment() {
         val videoId = "S0Q4gqBUs7c"
         callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
 
-        playButton.setOnClickListener {
+        /*playButton.setOnClickListener {
+            Log.d(LOG_TAG, "play button pressed")
 
-        }
+        }*/
 
         nextButton.setOnClickListener {
             // TODO: moveToNextSong()

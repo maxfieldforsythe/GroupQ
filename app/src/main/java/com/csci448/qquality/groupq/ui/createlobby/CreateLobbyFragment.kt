@@ -20,12 +20,12 @@ class CreateLobbyFragment: Fragment() {
     private var callbacks: Callbacks? = null
     private lateinit var createLobbyViewModel: CreateLobbyViewModel
     private lateinit var lobbyNameEditText: EditText
-    private lateinit var passwordEditText: EditText
-    private lateinit var reenterPasswordEditText: EditText
+    //private lateinit var passwordEditText: EditText
+    //private lateinit var reenterPasswordEditText: EditText
     private lateinit var createLobbyButton: Button
-    private lateinit var passwordLayout: LinearLayout
-    private lateinit var reenterPasswordLayout: LinearLayout
-    private lateinit var passwordSwitch: Switch
+    //private lateinit var passwordLayout: LinearLayout
+    //private lateinit var reenterPasswordLayout: LinearLayout
+    //private lateinit var passwordSwitch: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +44,17 @@ class CreateLobbyFragment: Fragment() {
         val view = inflater.inflate(R.layout.lobby_creation, container, false)
 
         lobbyNameEditText = view.findViewById(R.id.lobby_name_edit_text)
-        passwordEditText = view.findViewById(R.id.lobby_password_edit_text)
-        reenterPasswordEditText = view.findViewById(R.id.lobby_reenter_password_edit_text)
+        //passwordEditText = view.findViewById(R.id.lobby_password_edit_text)
+        //reenterPasswordEditText = view.findViewById(R.id.lobby_reenter_password_edit_text)
         createLobbyButton = view.findViewById(R.id.create_lobby_button)
 
-        passwordLayout = view.findViewById(R.id.password_layout)
-        reenterPasswordLayout = view.findViewById(R.id.reenter_password_layout)
-        passwordSwitch = view.findViewById(R.id.password_switch)
+        //passwordLayout = view.findViewById(R.id.password_layout)
+        //reenterPasswordLayout = view.findViewById(R.id.reenter_password_layout)
+        //passwordSwitch = view.findViewById(R.id.password_switch)
 
         var passwordStuffVisible: Boolean = false
 
-        passwordSwitch.setOnClickListener {
+       /* passwordSwitch.setOnClickListener {
             if (!passwordStuffVisible) {
                 passwordLayout.visibility = View.VISIBLE
                 reenterPasswordLayout.visibility = View.VISIBLE
@@ -64,7 +64,7 @@ class CreateLobbyFragment: Fragment() {
                 reenterPasswordLayout.visibility = View.INVISIBLE
                 passwordStuffVisible = false
             }
-        }
+        }*/
 
 
         return view
