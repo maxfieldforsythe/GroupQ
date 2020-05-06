@@ -155,7 +155,12 @@ class QueueFragment: Fragment() {
             .limit(3).get().addOnSuccessListener { snapShot->
                 val docs = snapShot.documents
                 if (docs.isEmpty()) {
-                    // Do nothing
+                    //do nothing
+                    youTubePlayerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback{
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
+                        }
+                    })
                 } else if (docs.size < 2){
                     // disable the next button if no songs to skip but play song
                     nextButton.isEnabled = false
