@@ -65,16 +65,22 @@
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player"
+
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             app:showFullScreenButton="false"
-            app:showYouTubeButton="false" />
+            app:showYouTubeButton="false"/>
+            <!--app:videoId="SYnVYJDxu2Q"
+            app:autoPlay="true"-->
 
         <ImageButton
             android:id="@+id/play_button"

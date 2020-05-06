@@ -1,5 +1,7 @@
 package com.csci448.qquality.groupq.ui.queue
 
+//import androidx.test.core.app.ApplicationProvider.getApplicationContext
+
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -16,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-//import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.csci448.qquality.groupq.R
 import com.csci448.qquality.groupq.data.QueuedSong
 import com.csci448.qquality.groupq.data.SongSearchResult
@@ -24,13 +25,12 @@ import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
 
@@ -124,18 +124,16 @@ class QueueFragment: Fragment() {
         viewLifecycleOwner.lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
                                                                     // this allows the autoplay feature to work
         // TODO: getFirstSongInQueue()
-
-        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        youTubePlayerView.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
             @Override
             fun onReady(youTubePlayer: YouTubePlayer) {
-                var videoId = ""
                 // TODO: if (the queue is not empty) {
-                videoId = "" // TODO: needs to be set
+                var videoId = "SYnVYJDxu2Q" // TODO: needs to be set
                 youTubePlayer.loadVideo(videoId, 0)
-
+/*
                 // TODO: else {
                 videoId = "SYnVYJDxu2Q"
-                youTubePlayer.cueVideo(videoId)
+                youTubePlayer.loadVideo(videoId)*/
             }
             @Override
             fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
@@ -169,9 +167,6 @@ class QueueFragment: Fragment() {
 //        addSongButton.setOnClickListener{
 //            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
 //        }
-
-
-
     }
 
     override fun onStart() {
