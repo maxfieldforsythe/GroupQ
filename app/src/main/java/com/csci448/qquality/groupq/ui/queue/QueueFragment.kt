@@ -34,6 +34,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.queue_screen.*
 
 
 private const val LOG_TAG = "448.QueueFragment"
@@ -292,6 +293,11 @@ class QueueFragment: Fragment() {
             setTitle(R.string.app_name)
         }
 
+        youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+            override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.pause()
+            }
+        })
         youTubePlayerView.release()
     }
 
