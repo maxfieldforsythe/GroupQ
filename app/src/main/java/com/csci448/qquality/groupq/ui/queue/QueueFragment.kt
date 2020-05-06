@@ -24,6 +24,7 @@ import com.csci448.qquality.groupq.data.SongSearchResult
 import com.csci448.qquality.groupq.ui.Callbacks
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -157,50 +158,59 @@ class QueueFragment: Fragment() {
             .collection("lobbies")
             .document(lobbyUUIDString)
             .collection("queue")
-            .orderBy("timeIn")
-            .limit(3).get().addOnSuccessListener { snapShot->
-                val docs = snapShot.documents
-                if (docs.isEmpty()) {
-                    //auto rick roll
-                    youTubePlayerView.getYouTubePlayerWhenReady(object: YouTubePlayerCallback{
-                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
-                        }
-                    })
-                } else if (docs.size < 2){
-                    // disable the next button if no songs to skip but play song
-                    nextButton.isEnabled = false
-                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
-                    //TODO new
-                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
-                        }
-                    })
-                    //callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
-                } else {
-                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
-                    // TODO new
-                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
-                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
-                        }
-                    })
-                    //callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
-                }
-            }
+
+        //update which video is in player
+        updateVideoInPlayer(queueRef)
+
+
+        //set a lister for db changes
+        queueRef.addSnapshotListener { _, _ ->
+            updateVideoInPlayer(queueRef)
+        }
 
         /*playButton.setOnClickListener {
             Log.d(LOG_TAG, "play button pressed")
 
         }*/
 
+        // listener for the next button
         nextButton.setOnClickListener {
             Log.d(LOG_TAG, "next button pressed")
 
             moveToNextSong()
         }
 
+    }
+
+    private fun updateVideoInPlayer(queueRef: CollectionReference) {
+        queueRef.orderBy("timeIn")
+            .limit(3).get().addOnSuccessListener { snapShot ->
+                val docs = snapShot.documents
+                if (docs.isEmpty()) {
+                    //auto rick roll
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.cueVideo("dQw4w9WgXcQ", 43f)
+                        }
+                    })
+                } else if (docs.size < 2) {
+                    // disable the next button if no songs to skip but play song
+                    nextButton.isEnabled = false
+                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
+                        }
+                    })
+                } else {
+                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback {
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(firstSong?.url ?: "dQw4w9WgXcQ", 0f)
+                        }
+                    })
+                }
+            }
     }
 
     // function to move to next song
@@ -319,6 +329,7 @@ class QueueFragment: Fragment() {
 
         val fsAdapter = FireStoreQueueAdapter(builder)
         queueRecyclerView.adapter = fsAdapter
+
 
 
 //        //old code
