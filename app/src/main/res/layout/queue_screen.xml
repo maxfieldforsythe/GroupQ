@@ -79,8 +79,6 @@
 
             app:showFullScreenButton="false"
             app:showYouTubeButton="false"/>
-            <!--app:videoId="SYnVYJDxu2Q"
-            app:autoPlay="true"-->
 
         <ImageButton
             android:id="@+id/play_button"

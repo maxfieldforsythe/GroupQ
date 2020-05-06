@@ -11,6 +11,10 @@ import com.csci448.qquality.groupq.ui.login.LoginFragment
 import com.csci448.qquality.groupq.ui.queue.QueueFragment
 import com.csci448.qquality.groupq.ui.registration.RegisterFragment
 import com.csci448.qquality.groupq.ui.songsearch.SongSearchFragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 private const val LOG_TAG = "448.MainActivity"
 
@@ -127,6 +131,26 @@ class MainActivity : AppCompatActivity(), Callbacks {
             .replace(R.id.fragment_container, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    /**
+     * Plays a YouTube video in any fragment
+     */
+    override fun playYouTubeVideo(videoId: String, youTubePlayerView: YouTubePlayerView) {
+        lifecycle.addObserver(youTubePlayerView)
+
+        youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+            /*fun onStateChange(youTubePlayer: com.google.android.youtube.player.YouTubePlayer, state: PlayerConstants.PlayerState) {
+                if (state== PlayerConstants.PlayerState.ENDED) {
+                    // moveToNextSong()
+                    // call loadVideo
+
+                }
+            }*/
+        })
     }
 }
 

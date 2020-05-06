@@ -121,37 +121,8 @@ class QueueFragment: Fragment() {
 
         // add a youtube player to the fragment
         youTubePlayerView = view.findViewById(R.id.youtube_player)
-        viewLifecycleOwner.lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
+        //viewLifecycleOwner.lifecycle.addObserver(youTubePlayerView) // add it as a lifecycle observer
                                                                     // this allows the autoplay feature to work
-        // TODO: getFirstSongInQueue()
-        youTubePlayerView.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
-            @Override
-            fun onReady(youTubePlayer: YouTubePlayer) {
-                // TODO: if (the queue is not empty) {
-                var videoId = "SYnVYJDxu2Q" // TODO: needs to be set
-                youTubePlayer.loadVideo(videoId, 0)
-/*
-                // TODO: else {
-                videoId = "SYnVYJDxu2Q"
-                youTubePlayer.loadVideo(videoId)*/
-            }
-            @Override
-            fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-                if (state==PlayerConstants.PlayerState.ENDED) {
-                    // TODO: moveToNextSong() -> remove current song from queue, getFirstSongInQueue()
-                    //  call loadVideo
-
-                }
-            }
-        })
-
-        playButton.setOnClickListener {
-
-        }
-
-        nextButton.setOnClickListener {
-            // TODO: moveToNextSong()
-        }
 
         updateUI()
         return view
@@ -164,9 +135,30 @@ class QueueFragment: Fragment() {
         searchButton.setOnClickListener {
             callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
-//        addSongButton.setOnClickListener{
-//            Toast.makeText(context, "Song added to the queue!", Toast.LENGTH_SHORT).show()
-//        }
+
+        // TODO: getFirstSongInQueue()
+        //      This function should search the database and either return the first song in the queue,
+        //      or place the current song in a "currentVideo" variable defined in the fragment.
+        //      All the player needs is the videoId. If the queue is empty the videoId string should
+        //      also be empty. This function will be called from MainActivity.
+
+        // TODO: moveToNextSong()
+        //      This function should (on an event triggered in MainActvity) delete the first song
+        //      from the queue and return the next song, or at least the videoId.
+        //      Maybe call getFirstSongInQueue() to get the new song?
+        //      This function will be called from MainActivity.
+
+        val videoId = "S0Q4gqBUs7c"
+        callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
+
+        playButton.setOnClickListener {
+
+        }
+
+        nextButton.setOnClickListener {
+            // TODO: moveToNextSong()
+        }
+
     }
 
     override fun onStart() {
