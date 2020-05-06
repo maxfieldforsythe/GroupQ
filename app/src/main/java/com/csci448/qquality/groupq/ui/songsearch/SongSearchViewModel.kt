@@ -1,7 +1,6 @@
 package com.csci448.qquality.groupq.ui.songsearch
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.csci448.qquality.groupq.data.QueuedSong
 import com.csci448.qquality.groupq.data.SongSearchResult
@@ -24,7 +23,7 @@ class SongSearchViewModel() : ViewModel(){
             "title" to queuedSong.title,
             "url" to queuedSong.url,
             "timeIn" to queuedSong.timeIn,
-            "uuid" to queuedSong.uuidString
+            "uuid" to queuedSong.uuid
         )
 
         database.collection("lobbies")

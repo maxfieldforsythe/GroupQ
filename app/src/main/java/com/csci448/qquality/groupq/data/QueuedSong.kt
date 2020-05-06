@@ -4,7 +4,7 @@ import java.sql.Timestamp
 import java.time.Instant
 import java.util.*
 
-data class QueuedSong(var title: String, var url: String, var timeIn: Date, var uuidString: String) {
+data class QueuedSong(var title: String, var url: String, var timeIn: Date, var uuid: String) {
     // default constructor for firebase
     constructor() : this("","", Date(System.currentTimeMillis()), "")
 

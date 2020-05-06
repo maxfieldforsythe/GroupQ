@@ -138,10 +138,14 @@ class MainActivity : AppCompatActivity(), Callbacks {
      * Plays a YouTube video in any fragment
      */
     override fun playYouTubeVideo(videoId: String, youTubePlayerView: YouTubePlayerView) {
+        Log.d(LOG_TAG, "playYoutubeVideo called()")
         lifecycle.addObserver(youTubePlayerView)
+
+
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
+                Log.d(LOG_TAG,"onReady() called")
                 //youTubePlayer.loadVideo(videoId, 0f)
                 youTubePlayer.loadOrCueVideo(lifecycle, videoId, 0f)
             }
@@ -152,6 +156,7 @@ class MainActivity : AppCompatActivity(), Callbacks {
                     // call loadVideo
                 }
             }
+
         })
     }
 }

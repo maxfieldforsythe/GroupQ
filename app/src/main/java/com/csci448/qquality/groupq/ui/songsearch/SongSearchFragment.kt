@@ -21,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URL
-import java.sql.Timestamp
 import java.util.*
 
 
@@ -176,7 +175,7 @@ class SongSearchFragment : Fragment() {
                 var queuedSong = QueuedSong()
                 queuedSong.title = song.title
                 queuedSong.timeIn = Date(System.currentTimeMillis())
-                queuedSong.uuidString = UUID.randomUUID().toString()
+                queuedSong.uuid = UUID.randomUUID().toString()
                 // set song URL
                 queuedSong.url = song.urlEnding
 

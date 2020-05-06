@@ -27,11 +27,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.android.extensions.LayoutContainer
 
@@ -147,7 +144,28 @@ class QueueFragment: Fragment() {
         //      This function will be called from MainActivity.
 
         val videoId = "S0Q4gqBUs7c"
-        callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
+        //callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
+
+        // queue the database to play the first song
+        val queueRef = FirebaseFirestore.getInstance()
+            .collection("lobbies")
+            .document(lobbyUUIDString)
+            .collection("queue")
+            .orderBy("timeIn")
+            .limit(3).get().addOnSuccessListener { snapShot->
+                val docs = snapShot.documents
+                if (docs.isEmpty()) {
+                    // Do nothing
+                } else if (docs.size < 2){
+                    // disable the next button if no songs to skip but play song
+                    nextButton.isEnabled = false
+                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
+                    callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
+                } else {
+                    val firstSong = docs.get(0).toObject(QueuedSong::class.java)
+                    callbacks?.playYouTubeVideo(firstSong?.url ?: "dQw4w9WgXcQ", youTubePlayerView)
+                }
+            }
 
         /*playButton.setOnClickListener {
             Log.d(LOG_TAG, "play button pressed")
@@ -155,9 +173,59 @@ class QueueFragment: Fragment() {
         }*/
 
         nextButton.setOnClickListener {
-            // TODO: moveToNextSong()
+            Log.d(LOG_TAG, "next button pressed")
+            //temporarily disable next button
+            nextButton.isEnabled = false
+
+            moveToNextSong()
         }
 
+    }
+
+    // function to move to next song
+    private fun moveToNextSong() {
+        val queueRef = FirebaseFirestore.getInstance()
+            .collection("lobbies")
+            .document(lobbyUUIDString)
+            .collection("queue")
+            .orderBy("timeIn")
+            .limit(3).get().addOnSuccessListener { snapShot ->
+                val docs = snapShot.documents
+                val numSongs = docs.size
+                if (numSongs < 2){ /* do nothing*/ }
+                else {
+                    // play next song
+                    val nextSong = docs.get(1).toObject(QueuedSong::class.java)
+                    youTubePlayerView.getYouTubePlayerWhenReady(object : YouTubePlayerCallback{
+                        override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(nextSong?.url ?: "dQw4w9WgXcQ", 0f)
+                        }
+                    })
+                    // pop the current song
+                    val currentSong = docs.get(0).toObject(QueuedSong::class.java)
+                    popSong(currentSong?.uuid ?: "")
+                    //enable the next button
+                    if (numSongs > 2) nextButton.isEnabled = true
+                }
+            }
+    }
+
+    // function to delete a song from the database
+    private fun popSong( uuid: String) {
+        Log.d(LOG_TAG, "popSong() called...uuid: $uuid")
+        //delete song
+        FirebaseFirestore.getInstance()
+            .collection("lobbies")
+            .document(lobbyUUIDString)
+            .collection("queue")
+            .document(uuid)
+            .delete()
+            .addOnSuccessListener {
+                Log.i(LOG_TAG,"Song popped from queue: $uuid")
+            }
+            .addOnFailureListener {
+                Log.i(LOG_TAG, "Failed to pop uuid from queue: \"$uuid\"")
+            }
     }
 
     override fun onStart() {
