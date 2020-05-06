@@ -14,7 +14,6 @@ class CreateLobbyViewModel : ViewModel() {
     private val database = Firebase.firestore
 
     // public function to add lobby to the database
-    // TODO as of right now, lobby creation is just done with the name string
     fun createLobby(name: String, uuid: String): Boolean {
         Log.d(LOG_TAG, "createLobby called()")
 
@@ -53,7 +52,6 @@ class CreateLobbyViewModel : ViewModel() {
             Log.d(LOG_TAG, "lobby map created. ${lobby["name"]}, ${lobby["uuid"]}")
 
             // push to database
-            // TODO should collection path be hardcoded?
             database.collection("lobbies").document(lobby["uuid"] ?: "Error Lobby")
                 .set(lobby)
                 .addOnSuccessListener { docRef ->

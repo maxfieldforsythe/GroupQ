@@ -18,7 +18,7 @@ class LoginFragment : Fragment() {
     * Required Callbacks interface for hosting activities
      */
 //    interface Callbacks {
-//        // TODO handle user authentification. For now just a dummy login button
+//        // handle user authentification. For now just a dummy login button
 //        fun onLoginPressed()
 //        fun onRegisterPressed()
 //    }
@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         loginButton.setOnClickListener {
-            // TODO handle any necessary user auth stuff
+            // handle any necessary user auth stuff
            // Toast.makeText(context, "Not handling user auth yet", Toast.LENGTH_SHORT).show()
 
             callbacks?.onLoginPressed()

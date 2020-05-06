@@ -134,6 +134,7 @@ class QueueFragment: Fragment() {
             callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
 
+
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
                 if (state== PlayerConstants.PlayerState.ENDED) {
@@ -386,7 +387,7 @@ class QueueFragment: Fragment() {
 
 
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        // TODO make the addButton function
+
 
         val titleTextView: TextView = itemView.findViewById(R.id.song_title)
         //val artistTextView: TextView = itemView.findViewById(R.id.song_artist)

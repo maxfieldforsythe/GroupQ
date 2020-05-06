@@ -24,7 +24,7 @@ import java.net.URL
 import java.util.*
 
 
-// TODO do this differently so source can be used functionally
+
 private val SOURCES = arrayOf("YouTube"/*, "SoundCloud"*/)
 
 private const val LOBBY_NAME_ARG = "lobby_name_arg"
