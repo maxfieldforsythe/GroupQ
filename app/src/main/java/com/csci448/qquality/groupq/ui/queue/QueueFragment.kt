@@ -131,18 +131,6 @@ class QueueFragment: Fragment() {
             callbacks?.onGoToSongSearch(lobbyUUIDString, lobbyName)
         }
 
-        // TODO: getFirstSongInQueue()
-        //      This function should search the database and either return the first song in the queue,
-        //      or place the current song in a "currentVideo" variable defined in the fragment.
-        //      All the player needs is the videoId. If the queue is empty the videoId string should
-        //      also be empty. This function will be called from MainActivity.
-
-        // TODO: moveToNextSong()
-        //      This function should (on an event triggered in MainActvity) delete the first song
-        //      from the queue and return the next song, or at least the videoId.
-        //      Maybe call getFirstSongInQueue() to get the new song?
-        //      This function will be called from MainActivity.
-
         val videoId = "S0Q4gqBUs7c"
         //callbacks?.playYouTubeVideo(videoId, youTubePlayerView)
 
@@ -357,7 +345,7 @@ class QueueFragment: Fragment() {
 
 
     private inner class SongHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        // TODO make the addButton function
+
 
         val titleTextView: TextView = itemView.findViewById(R.id.song_title)
         //val artistTextView: TextView = itemView.findViewById(R.id.song_artist)

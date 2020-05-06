@@ -94,14 +94,11 @@ class CreateLobbyFragment: Fragment() {
         // get the lobby name
         val lobbyName = lobbyNameEditText.text.toString()
 
-        //TODO check if lobby name already exists
         if (lobbyName.length < 1){
             Toast.makeText(requireContext(), "Add a lobby name!", Toast.LENGTH_SHORT).show()
         } else {
             if (createLobbyViewModel.createLobby(lobbyName, lobbyUUIDString)) {
 
-                //TODO add a lobby password
-                // advance to next screen
                 callbacks?.onLobbyCreated(lobbyUUIDString, lobbyName)
             } else {
                 Toast.makeText(requireContext(), "A lobby with this name already exists!", Toast.LENGTH_SHORT)

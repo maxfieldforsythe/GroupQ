@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), Callbacks {
      * Moving from LoginFragment to LobbiesFragment
      */
     override fun onLoginPressed() {
-        // TODO implement user auth handling. Should that be done in separate activity?
         Log.d(LOG_TAG, "onLoginPressed() called")
 
         val fragment = LobbiesFragment()
