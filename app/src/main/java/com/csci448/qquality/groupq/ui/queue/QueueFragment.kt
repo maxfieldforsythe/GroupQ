@@ -143,6 +143,7 @@ class QueueFragment: Fragment() {
                     moveToNextSong()
 
                 }
+
             }
 
         })
@@ -290,6 +291,8 @@ class QueueFragment: Fragment() {
         (activity as AppCompatActivity).supportActionBar?.apply {
             setTitle(R.string.app_name)
         }
+
+        youTubePlayerView.release()
     }
 
     private fun updateUI() {
