@@ -84,7 +84,7 @@ class SongSearchFragment : Fragment() {
 
             var threadIsFinished = false
             val thread = Thread(Runnable {
-                result = JSONObject(URL("https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=25&key=AIzaSyCL8nn2bP2rlzgeEserQnQpp0IYepN6Yas").readText())
+                result = JSONObject(URL("https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=25&key=AIzaSyDcdOGHvd-Cw-EFjMD-YUHcpBucT9QwFyo").readText())
                 items = result.getJSONArray("items")
                 for (i in 0 until items.length()) {
                     val c: JSONObject = items.getJSONObject(i)
